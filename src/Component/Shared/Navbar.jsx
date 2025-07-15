@@ -11,8 +11,8 @@ const Navbar = () => {
         <NavLink
           to="/"
           className={({ isActive }) =>
-            `text-black p-3 hover:border-2 hover:rounded-2xl hover:border-gray-900 ${
-              isActive ? "md:border-2 rounded-2xl border-gray-900" : ""
+            `text-black lg:text-white p-3 hover:border-2 hover:rounded-2xl hover:border-gray-900   ${
+              isActive ? "md:border-2 rounded-2xl border-gray-900 " : ""
             }`
           }
         >
@@ -23,8 +23,8 @@ const Navbar = () => {
         <NavLink
           to="/biodatas"
           className={({ isActive }) =>
-            `text-black p-3 hover:border-2 hover:rounded-2xl hover:border-gray-900 ${
-              isActive ? "border-2 rounded-2xl border-gray-900" : ""
+            `text-black lg:text-white p-3 hover:border-2 hover:rounded-2xl hover:border-gray-900  ${
+              isActive ? "border-2 rounded-2xl border-gray-900 " : ""
             }`
           }
         >
@@ -35,8 +35,8 @@ const Navbar = () => {
         <NavLink
           to="/dashboard"
           className={({ isActive }) =>
-            `text-black p-3 hover:border-2 hover:rounded-2xl hover:border-gray-900 ${
-              isActive ? "border-2 rounded-2xl border-gray-900" : ""
+            `text-black lg:text-white p-3 hover:border-2 hover:rounded-2xl hover:border-gray-900  ${
+              isActive ? "border-2 rounded-2xl border-gray-900 " : ""
             }`
           }
         >
@@ -47,8 +47,8 @@ const Navbar = () => {
         <NavLink
           to="/about-us"
           className={({ isActive }) =>
-            `text-black p-3 hover:border-2 hover:rounded-2xl hover:border-gray-900 ${
-              isActive ? "border-2 rounded-2xl border-gray-900" : ""
+            `text-black lg:text-white p-3 hover:border-2 hover:rounded-2xl hover:border-gray-900  ${
+              isActive ? "border-2 rounded-2xl border-gray-900 " : ""
             }`
           }
         >
@@ -59,8 +59,8 @@ const Navbar = () => {
         <NavLink
           to="/contact-us"
           className={({ isActive }) =>
-            `text-black p-3 hover:border-2 hover:rounded-2xl hover:border-gray-900 ${
-              isActive ? "border-2 rounded-2xl border-gray-900" : ""
+            `text-black lg:text-white p-3 hover:border-2 hover:rounded-2xl hover:border-gray-900  ${
+              isActive ? "border-2 rounded-2xl border-gray-900 " : ""
             }`
           }
         >
@@ -72,15 +72,15 @@ const Navbar = () => {
 
   return (
     <div>
-      <nav className="bg-white fixed w-full z-20 top-0 start-0 border-b border-gray-200">
+      <nav className="fixed bg-[#00000063] w-full z-20 top-0 start-0 border-b border-gray-200">
         <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
           {/* Logo */}
           <Link
             to="/"
             className="flex items-center space-x-3 rtl:space-x-reverse"
           >
-            <div className="w-25">
-              <img src={logo} alt="Logo" />
+            <div className="w-15 md:w-25 rounded-full">
+              <img className="rounded-full"src={logo} alt="Logo" />
             </div>
           </Link>
 
@@ -103,7 +103,7 @@ const Navbar = () => {
             <button
               onClick={() => setIsOpen(!isOpen)} // Toggle menu
               type="button"
-              className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg lg:hidden hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-200"
+              className="bg-white inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg lg:hidden hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-200"
               aria-expanded={isOpen}
             >
               <span className="sr-only">Open main menu</span>
@@ -136,11 +136,11 @@ const Navbar = () => {
           {/* Nav Links */}
           <div
             className={`${
-              isOpen ? "block" : "hidden"
+              isOpen ? "block bg-white" : "hidden"
             } w-full lg:flex lg:w-auto lg:order-1`}
             id="navbar-sticky"
           >
-            <ul className="flex flex-col p-4 lg:p-0 mt-10 font-medium border border-gray-100 rounded-lg bg-gray-50 md:space-y-2 lg:space-x-8 lg:flex-row  md:mt-0 md:border-0 md:bg-white">
+            <ul className="flex flex-col p-4 lg:p-0 mt-10 font-medium border border-gray-100 rounded-lg md:space-y-2 lg:space-x-8 lg:flex-row  md:mt-0 md:border-0 ">
               {links}
             </ul>
           </div>
