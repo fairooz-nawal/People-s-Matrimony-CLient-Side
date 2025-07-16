@@ -1,5 +1,5 @@
 import { useContext, useState } from 'react';
-import { ContextAPI } from './ContextAPI/AuthProvider';
+import { ContextAPI } from '../ContextAPI/AuthProvider';
 
 const Dropdown = () => {
   const {handleMainDropdown} = useContext(ContextAPI);
@@ -19,7 +19,7 @@ const Dropdown = () => {
         type="button"
         onClick={handleToggle}
       >
-        Dropdown hover
+        Filter by Age
         <svg
           className="w-2.5 h-2.5 ms-3"
           aria-hidden="true"

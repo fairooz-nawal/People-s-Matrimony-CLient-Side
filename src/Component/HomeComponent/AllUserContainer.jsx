@@ -3,7 +3,7 @@ import axios from 'axios';
 import SingleUserCard from './SingleUserCard';
 import Dropdown from './Dropdown';
 import { useContext } from 'react';
-import { ContextAPI } from './ContextAPI/AuthProvider';
+import { ContextAPI } from '../ContextAPI/AuthProvider';
 
 const AllUserContainer = () => {
     const { selected, sortUsersByAge } = useContext(ContextAPI);
@@ -29,7 +29,7 @@ const AllUserContainer = () => {
                         <SingleUserCard
                             key={singleuser._id}
                             singleuser={singleuser}
-                            index={index + 1}
+                            index={index + 1}                                           
                         />
                     ))
                 }

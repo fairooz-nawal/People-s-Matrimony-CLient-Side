@@ -2,9 +2,9 @@ import { useState } from 'react'
 import { Carousel } from 'react-responsive-carousel'
 import { motion } from 'framer-motion'
 import "react-responsive-carousel/lib/styles/carousel.min.css";
-import bg1 from '../assets/banner-1.jpg'
-import bg2 from '../assets/banner-2.jpg'
-import bg3 from '../assets/banner-3.jpg'
+import bg1 from '../../assets/banner-1.jpg'
+import bg2 from '../../assets/banner-2.jpg'
+import bg3 from '../../assets/banner-3.jpg'
 
 const fadeUp = {
   hidden: { opacity: 0, y: 20 },
