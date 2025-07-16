@@ -41,19 +41,31 @@ const HowItWorks = () => {
                     />
                 </div>
 
-                {/* Right Instructions */}
-                <div>
+                    
+
+                {/* Right Instructions with Flowchart */}
+                <div className="relative">
+                    {/* Golden Line */}
+                    <div className="absolute left-5 top-0 h-full w-1 bg-gradient-to-b from-yellow-400 to-yellow-600"></div>
+
+                    {/* Steps */}
                     {steps.map((step, index) => (
                         <div
                             key={index}
-                            className="flex items-start gap-4 mb-6"
+                            className="flex items-start gap-4 mb-8 relative"
                         >
-                            <div className="bg-gray-100 p-3 rounded-full">
-                                {step.icon}
+                            {/* Number Circle */}
+                            <div className="z-10">
+                                <div className="w-10 h-10 flex items-center justify-center bg-yellow-500 text-white font-bold rounded-full shadow-md">
+                                    {index + 1}
+                                </div>
                             </div>
-                            <div>
-                                <h3 className="text-lg font-semibold">
-                                    {index + 1}. {step.title}
+
+                            {/* Content */}
+                            <div className="ml-4">
+                                <h3 className="text-lg font-semibold flex items-center gap-2">
+                                    {step.icon}
+                                    {step.title}
                                 </h3>
                                 <p className="text-gray-600">{step.description}</p>
                             </div>
