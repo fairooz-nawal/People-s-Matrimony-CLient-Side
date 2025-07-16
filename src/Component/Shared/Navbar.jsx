@@ -11,8 +11,8 @@ const Navbar = () => {
         <NavLink
           to="/"
           className={({ isActive }) =>
-            `text-black lg:text-white p-3 hover:border-2 hover:rounded-2xl hover:border-gray-900   ${
-              isActive ? "md:border-2 rounded-2xl border-gray-900 " : ""
+            `text-black lg:text-white p-3 hover:border-2 hover:rounded-2xl hover:border-white   ${
+              isActive ? "md:border-2 rounded-2xl border-white " : ""
             }`
           }
         >
@@ -23,8 +23,8 @@ const Navbar = () => {
         <NavLink
           to="/biodatas"
           className={({ isActive }) =>
-            `text-black lg:text-white p-3 hover:border-2 hover:rounded-2xl hover:border-gray-900  ${
-              isActive ? "border-2 rounded-2xl border-gray-900 " : ""
+            `text-black lg:text-white p-3 hover:border-2 hover:rounded-2xl hover:border-white  ${
+              isActive ? "border-2 rounded-2xl border-white " : ""
             }`
           }
         >
@@ -35,8 +35,8 @@ const Navbar = () => {
         <NavLink
           to="/dashboard"
           className={({ isActive }) =>
-            `text-black lg:text-white p-3 hover:border-2 hover:rounded-2xl hover:border-gray-900  ${
-              isActive ? "border-2 rounded-2xl border-gray-900 " : ""
+            `text-black lg:text-white p-3 hover:border-2 hover:rounded-2xl hover:border-white  ${
+              isActive ? "border-2 rounded-2xl border-white " : ""
             }`
           }
         >
@@ -47,8 +47,8 @@ const Navbar = () => {
         <NavLink
           to="/about-us"
           className={({ isActive }) =>
-            `text-black lg:text-white p-3 hover:border-2 hover:rounded-2xl hover:border-gray-900  ${
-              isActive ? "border-2 rounded-2xl border-gray-900 " : ""
+            `text-black lg:text-white p-3 hover:border-2 hover:rounded-2xl hover:border-white  ${
+              isActive ? "border-2 rounded-2xl border-white " : ""
             }`
           }
         >
@@ -59,8 +59,8 @@ const Navbar = () => {
         <NavLink
           to="/contact-us"
           className={({ isActive }) =>
-            `text-black lg:text-white p-3 hover:border-2 hover:rounded-2xl hover:border-gray-900  ${
-              isActive ? "border-2 rounded-2xl border-gray-900 " : ""
+            `text-black lg:text-white p-3 hover:border-2 hover:rounded-2xl hover:border-white  ${
+              isActive ? "border-2 rounded-2xl border-white " : ""
             }`
           }
         >
@@ -88,13 +88,13 @@ const Navbar = () => {
           <div className="flex md:order-2 space-x-3">
             <Link
               to="/login"
-              className="p-3 border-2 rounded-2xl shadow-2xl font-bold bg-[#fa8c8f] text-white hover:bg-red-500"
+              className="p-3 border-2 rounded-2xl shadow-2xl font-bold primary text-white hover:bg-red-500"
             >
               Login
             </Link>
             <Link
               to="/register"
-              className="p-3 border-2 rounded-2xl shadow-2xl font-bold bg-[#fa8c8f] text-white hover:bg-red-500"
+              className="p-3 border-2 rounded-2xl shadow-2xl font-bold primary text-white hover:bg-red-500"
             >
               Registration
             </Link>

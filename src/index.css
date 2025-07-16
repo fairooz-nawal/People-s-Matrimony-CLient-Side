@@ -1,11 +1,19 @@
 @import url('https://fonts.googleapis.com/css2?family=Oxygen:wght@300;400;700&family=Sail&display=swap');
 @import "tailwindcss";
-@import "flowbite/src/themes/default";
-@plugin "flowbite/plugin";
-@source "../node_modules/flowbite";
+@plugin "flowbite-react/plugin/tailwindcss";
+@source "../.flowbite-react/class-list.json";
+@import 'flowbite';
 
 .cursive {
   font-family: "Sail", system-ui;
   font-weight: 400;
   font-style: normal;
+}
+
+.primary{
+  background-color: #ff7378;
+}
+
+.secondary{
+  color: #b98d77;
 }
