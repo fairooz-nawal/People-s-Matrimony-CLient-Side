@@ -7,7 +7,6 @@ import { ContextAPI } from '../ContextAPI/AuthProvider';
 
 const AllUserContainer = () => {
     const { selected, sortUsersByAge } = useContext(ContextAPI);
-    console.log(selected)
     const { isPending, error, data: users } = useQuery({
         queryKey: ['allUsers'],
         queryFn: async () => {

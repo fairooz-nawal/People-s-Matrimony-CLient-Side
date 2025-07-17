@@ -3,6 +3,7 @@ import Banner from '../../Component/HomeComponent/Banner';
 import AllUserContainer from '../../Component/HomeComponent/AllUserContainer';
 import HowItWorks from "../../Component/HomeComponent/HowItWorks"
 import SuccessCounter from '../../Component/HomeComponent/SuccessCounter';
+import StoryContainer from '../../Component/HomeComponent/StoryContainer';
 
 const Home = () => {
     return (
@@ -11,6 +12,7 @@ const Home = () => {
             <AllUserContainer></AllUserContainer>
             <HowItWorks></HowItWorks>
             <SuccessCounter></SuccessCounter>
+            <StoryContainer></StoryContainer>
         </div>
     );
 };

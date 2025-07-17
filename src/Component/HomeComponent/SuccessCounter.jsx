@@ -30,8 +30,6 @@ const SuccessCounter = () => {
         );
     }
 
-
-    console.log(stats)
     return (
         <div className="my-[100px] px-4 w-11/12 mx-auto text-center">
             <h2 className="text-3xl md:text-4xl font-bold text-center cursive mb-10">
@@ -91,7 +89,7 @@ const SuccessCounter = () => {
                     </div>
                     <div className="bg-[#0d0d0da7] absolute bottom-[20%] left-[15%]  w-[200px] h-[100px] rounded-full">
                         <h3 className="text-5xl cursive font-bold text-white">
-                            <CountUp end={stats.totalFemales} duration={2} />
+                            <CountUp end={stats.totalMarriages} duration={2} />
                         </h3>
                         <p className="text-white cursive mt-2 text-lg font-medium">Successful Marriages</p>
                     </div>
