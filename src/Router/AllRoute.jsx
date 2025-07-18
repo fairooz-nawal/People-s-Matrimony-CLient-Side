@@ -7,6 +7,7 @@ import Registration from "../Pages/Registration";
 import Login from "../Pages/Login";
 import ProtectedRoute from "./ProtectedRoutes";
 import BiodataDetails from "../Pages/BioDataDetail";
+import DashBoard from "../Pages/DashBoard/DashBoard";
 
 
 export const router = createBrowserRouter([
@@ -25,6 +26,16 @@ export const router = createBrowserRouter([
         {
             path:"/biodataDetail/:id",
             element:<ProtectedRoute><BiodataDetails></BiodataDetails></ProtectedRoute>
+        },
+        {
+            path:"/dashboard",
+            element:<ProtectedRoute><DashBoard></DashBoard></ProtectedRoute>,
+            children:[
+              {
+                path:"/dashboard",
+                element:<ProtectedRoute><DashBoard></DashBoard></ProtectedRoute>
+              }
+            ]
         }
     ]
   },

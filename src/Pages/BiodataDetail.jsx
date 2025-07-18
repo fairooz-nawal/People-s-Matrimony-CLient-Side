@@ -30,7 +30,10 @@ const BiodataDetails = () => {
     if(isPending){
         return <div className='text-center text-2xl font-bold'>Loading...</div>
     }
-    console.log(Details);
+
+    if (!Details) {
+        return <div className='text-center text-2xl font-bold'>No Biodata Found</div>
+    }
 
     const { age, contactEmail, dob, expectedPartnerAge, expectedPartnerHeight, expectedPartnerWeight, fatherName, gender, height, mobileNumber, motherName, name, occupation, permanentDivision, presentDivision, profileImage, race, weight, isPremium
     } = Details;
@@ -74,29 +77,36 @@ const BiodataDetails = () => {
     };
 
     return (
-        <div className="md:max-w-7xl lg:max-w-[1600px] mx-auto bg-white p-6 md:my-[150px]">
+        <div className="min-h-screen md:max-w-7xl lg:max-w-[1600px] mx-auto bg-white p-6 md:my-[150px]">
              <h1 className='text-4xl lg:text-7xl primary font-bold text-center text-white cursive md:w-9/12 mx-auto p-5'>Details of the Person</h1>
             <div className="grid grid-cols-1 md:grid-cols-2 shadow-md gap-2  md:w-9/12 lg:w-9/12 mx-auto">
                 <div className="border-2 bg-gray-300">
                     <img
                         src={profileImage}
                         alt={name}
-                        className="w-[300px] h-[400px] object-cover mx-auto" />
+                        className="w-[300px] h-[400px] object-cover mx-auto mt-10" />
                 </div>
-                <div className="">
+                <div className="p-5">
                     <h1 className="text-2xl font-bold">Name: {name}</h1>
-                    <p className="text-gray-500">Gender: {gender}</p>
+                    <p className="text-gray-900 font-bold">Gender: {gender}</p>
                     <p className="text-gray-500">Age: {age}</p>
+                    <p className="text-gray-500">Date of Birth: {dob}</p>
+                    <p className="text-gray-500">Father's Name: {fatherName}</p>
+                    <p className="text-gray-500">Mother's Name: {motherName}</p>
                     <p className="text-gray-500">Occupation: {occupation}</p>
-                    <p className="text-gray-500">Height: {height}</p>
-                    <p className="text-gray-500">Weight: {weight}</p>
-                    <p className="text-gray-500">Race: {race}</p>
                     <p className="text-gray-500">
                         Present Division: {presentDivision}
                     </p>
                     <p className="text-gray-500">
                         Permanent Division: {permanentDivision}
                     </p>
+                    <p className="text-gray-500">Height: {height}</p>
+                    <p className="text-gray-500">Weight: {weight}</p>
+                    <p className="text-gray-500">Race: {race}</p>
+                    <p className="text-gray-500">Expected Partner Height: {expectedPartnerHeight}</p>
+                    <p className="text-gray-500">Expected Partner Weight: {expectedPartnerWeight}</p>
+                    <p className="text-gray-500">Expected Partner Age: {expectedPartnerAge}</p>
+                    
 
                     {/* Contact Info */}
                     <div className="mt-4">
