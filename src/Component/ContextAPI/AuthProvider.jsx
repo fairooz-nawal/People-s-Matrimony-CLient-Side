@@ -1,4 +1,6 @@
+import { createUserWithEmailAndPassword } from 'firebase/auth';
 import React, { createContext, useState } from 'react';
+import auth from '../Firebase/Firebase.config';
 
 export const ContextAPI = createContext('');
 const AuthProvider = ({ children }) => {
@@ -6,7 +8,10 @@ const AuthProvider = ({ children }) => {
     const handleMainDropdown = (value) => {
         setSelected(value);
     }
-
+    
+    const createUser =(email, password) =>{
+        return createUserWithEmailAndPassword(auth, email, password);
+    }
 
     // Function to sort users by age based on the homepage of customer
      const sortUsersByAge = (users, selected) => {
@@ -21,13 +26,13 @@ const AuthProvider = ({ children }) => {
             return users;
         }
     };
-    const auth = {
-        handleMainDropdown, selected,sortUsersByAge
+    const userinfo = {
+        handleMainDropdown, selected,sortUsersByAge,createUser
     }
 
    
     return (
-        <ContextAPI.Provider value={auth}>
+        <ContextAPI.Provider value={userinfo}>
             {children}
         </ContextAPI.Provider>
     );
