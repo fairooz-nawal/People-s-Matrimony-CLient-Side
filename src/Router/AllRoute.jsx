@@ -5,6 +5,8 @@ import BioData from "../Pages/BioData";
 import AuthLayout from "../Layout/AuthLayout";
 import Registration from "../Pages/Registration";
 import Login from "../Pages/Login";
+import ProtectedRoute from "./ProtectedRoutes";
+import BiodataDetails from "../Pages/BioDataDetail";
 
 
 export const router = createBrowserRouter([
@@ -18,7 +20,11 @@ export const router = createBrowserRouter([
         },
         {
             path:"/biodatas",
-            Component:BioData
+            element:<ProtectedRoute><BioData></BioData></ProtectedRoute>
+        },
+        {
+            path:"/biodataDetail/:id",
+            element:<ProtectedRoute><BiodataDetails></BiodataDetails></ProtectedRoute>
         }
     ]
   },

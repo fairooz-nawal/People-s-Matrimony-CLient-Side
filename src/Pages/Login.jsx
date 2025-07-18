@@ -7,11 +7,11 @@ import { ContextAPI } from '../Component/ContextAPI/AuthProvider';
 import Swal from 'sweetalert2'
 const Login = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
-    const { signInUser,signUpWithGoogle } = useContext(ContextAPI);
+    const { signInUser, signUpWithGoogle } = useContext(ContextAPI);
     const navigate = useNavigate();
     const location = useLocation();
+    console.log(location);
     const onSubmit = (data) => {
-
         signInUser(data.email, data.password)
             .then((res) => {
                 const user = res.user;
@@ -20,9 +20,10 @@ const Login = () => {
                         title: "Login Done Successfully",
                         icon: "success",
                         draggable: true
-                    });
+                    }).then(() => {
+                        navigate(location?.state || '/')
+                    })
                 }
-                 navigate(location?.state || '/')
             })
             .catch((error) => {
                 const errorMessage = error.message;
@@ -30,12 +31,13 @@ const Login = () => {
                     icon: "error",
                     title: "Oops...",
                     text: errorMessage,
+                }).then(() => {
+                    navigate('/auth/login');    
                 });
-                 navigate('/auth/login');
             });
     }
-    const handleGoogle = () =>{
-         signUpWithGoogle()
+    const handleGoogle = () => {
+        signUpWithGoogle()
             .then((res) => {
                 const user = res.user;
                 if (user) {
@@ -43,8 +45,10 @@ const Login = () => {
                         title: "Login Done Successfully",
                         icon: "success",
                         draggable: true
+                    }).then(() => {
+                        navigate(location?.state || '/');
                     });
-                    navigate(location?.state || '/');
+
                 }
             })
             .catch((error) => {
@@ -53,8 +57,9 @@ const Login = () => {
                     icon: "error",
                     title: "Oops...",
                     text: errorMessage,
-                });
-                 navigate('/auth/login');
+                }).then(() => {
+                    navigate('/auth/login');
+                })
             });
     }
     return (

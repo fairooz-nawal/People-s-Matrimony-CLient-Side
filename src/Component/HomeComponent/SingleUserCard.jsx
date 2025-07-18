@@ -2,11 +2,11 @@ import React from 'react';
 import { Link } from 'react-router';
 
 const SingleUserCard = ({ singleuser,index }) => {
-    const { age,  gender, occupation,permanentDivision, profileImage } = singleuser;
+    const { _id, age,  gender, occupation,permanentDivision, profileImage } = singleuser;
     return (
         <div>
             <div className="w-full bg-white border border-gray-200 rounded-lg shadow-sm">
-                <div className="w-1/2 mx-auto">
+                <div className="w-[300px] h-[300px] mx-auto">
                      <img className="rounded-full w-full h-full" src={profileImage} alt="product image" />
                 </div>
                    
@@ -20,7 +20,7 @@ const SingleUserCard = ({ singleuser,index }) => {
                     </a>
                   
                     <div className="flex items-center justify-end">
-                        <Link><button type="button"  className="p-3 border-2 rounded-2xl shadow-2xl font-bold primary text-white hover:bg-red-500" >View Details</button></Link>
+                        <Link to={`/biodataDetail/${_id}`}><button type="button"  className="p-3 border-2 rounded-2xl shadow-2xl font-bold primary text-white hover:bg-red-500" >View Details</button></Link>
                     </div>
                 </div>
             </div>

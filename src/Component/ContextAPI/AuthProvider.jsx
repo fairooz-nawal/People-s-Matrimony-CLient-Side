@@ -62,7 +62,7 @@ const AuthProvider = ({ children }) => {
         };
     }, [])
     const userinfo = {
-        handleMainDropdown, selected, sortUsersByAge, createUser, signInUser, signUpWithGoogle, signOutUser, loading, users
+        handleMainDropdown, selected, sortUsersByAge, createUser, signInUser, signUpWithGoogle, signOutUser, loading, users,setLoading
     }
 
 

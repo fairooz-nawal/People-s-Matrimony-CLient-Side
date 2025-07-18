@@ -4,7 +4,7 @@ import { ContextAPI } from '../Component/ContextAPI/AuthProvider';
 
 
 const ProtectedRoute = ({ children }) => {
-    const { user, loading, setLoading } = useContext(ContextAPI);
+    const { users, loading, setLoading } = useContext(ContextAPI);
     const location = useLocation();
 
    
@@ -13,7 +13,7 @@ const ProtectedRoute = ({ children }) => {
             <span className="loading loading-bars loading-xl"></span>
         </div>
     }
-     if(!user) {
+     if(!users) {
         setLoading(false);
         return <Navigate state={location?.pathname} to="/auth/login"></Navigate>
     }

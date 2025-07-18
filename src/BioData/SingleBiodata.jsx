@@ -1,9 +1,8 @@
 import React from 'react';
+import { Link } from 'react-router';
 
 const SingleBiodata = ({ single, index }) => {
-  console.log(single);
-
-  const { gender, profileImage, permanentDivision, age, occupation, onViewProfile, } = single
+  const {_id, gender, profileImage, permanentDivision, age, occupation, onViewProfile, } = single
   return (
     <div className="bg-white rounded-2xl shadow-md hover:shadow-lg transition duration-300 w-11/12 mx-auto overflow-hidden border">
       {/* Profile Image */}
@@ -39,12 +38,12 @@ const SingleBiodata = ({ single, index }) => {
         </p>
 
         {/* View Profile Button */}
-        <button
+        <Link to={`/biodataDetail/${_id}`}
           onClick={onViewProfile}
           className="w-full secondarybg text-white py-2 px-4 rounded-lg hover:secondarybg transition duration-300"
         >
           View Profile
-        </button>
+        </Link>
       </div>
     </div>
   );
