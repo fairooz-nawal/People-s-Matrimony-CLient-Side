@@ -2,12 +2,14 @@ import React, { useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import bg1 from "../assets/loginbg.png";
 import bg2 from "../assets/form.jpg"
-import { Link } from 'react-router';
+import { Link, useLocation, useNavigate } from 'react-router';
 import { ContextAPI } from '../Component/ContextAPI/AuthProvider';
 import Swal from 'sweetalert2'
 const Login = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
     const { signInUser,signUpWithGoogle } = useContext(ContextAPI);
+    const navigate = useNavigate();
+    const location = useLocation();
     const onSubmit = (data) => {
 
         signInUser(data.email, data.password)
@@ -21,6 +23,7 @@ const Login = () => {
                         draggable: true
                     });
                 }
+                 navigate(location?.state || '/')
             })
             .catch((error) => {
                 const errorMessage = error.message;
@@ -29,6 +32,7 @@ const Login = () => {
                     title: "Oops...",
                     text: errorMessage,
                 });
+                 navigate('/auth/login');
             });
     }
     const handleGoogle = () =>{
@@ -42,6 +46,7 @@ const Login = () => {
                         icon: "success",
                         draggable: true
                     });
+                    navigate(location?.state || '/');
                 }
             })
             .catch((error) => {
@@ -51,6 +56,7 @@ const Login = () => {
                     title: "Oops...",
                     text: errorMessage,
                 });
+                 navigate('/auth/login');
             });
     }
     return (
