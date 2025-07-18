@@ -1,9 +1,10 @@
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
+import { createUserWithEmailAndPassword, GoogleAuthProvider, signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
 import React, { createContext, useState } from 'react';
 import auth from '../Firebase/Firebase.config';
 
 export const ContextAPI = createContext('');
 const AuthProvider = ({ children }) => {
+    const provider = new GoogleAuthProvider();
     const [selected, setSelected] = useState("asc");
     const handleMainDropdown = (value) => {
         setSelected(value);
@@ -15,6 +16,10 @@ const AuthProvider = ({ children }) => {
 
     const signInUser = (email, password) => {
         return signInWithEmailAndPassword(auth, email, password);};
+    
+    const signUpWithGoogle = () => {
+        return signInWithPopup(auth, provider)
+    }
 
     // Function to sort users by age based on the homepage of customer
      const sortUsersByAge = (users, selected) => {
@@ -30,7 +35,7 @@ const AuthProvider = ({ children }) => {
         }
     };
     const userinfo = {
-        handleMainDropdown, selected,sortUsersByAge,createUser,signInUser
+        handleMainDropdown, selected,sortUsersByAge,createUser,signInUser,signUpWithGoogle
     }
 
    
