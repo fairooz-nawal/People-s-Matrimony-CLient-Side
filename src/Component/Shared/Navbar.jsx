@@ -1,18 +1,19 @@
 import logo from "../../assets/mainlogo.png";
 import { Link, NavLink } from "react-router";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { ContextAPI } from "../ContextAPI/AuthProvider";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false); // For mobile menu toggle
-
+  const { users, signOutUser } = useContext(ContextAPI);
+ 
   const links = (
     <>
       <li>
         <NavLink
           to="/"
           className={({ isActive }) =>
-            `text-black lg:text-white p-3 hover:border-2 hover:rounded-2xl hover:border-white   ${
-              isActive ? "md:border-2 rounded-2xl border-white " : ""
+            `text-black lg:text-white p-3 hover:border-2 hover:rounded-2xl hover:border-white   ${isActive ? "md:border-2 rounded-2xl border-white " : ""
             }`
           }
         >
@@ -23,8 +24,7 @@ const Navbar = () => {
         <NavLink
           to="/biodatas"
           className={({ isActive }) =>
-            `text-black lg:text-white p-3 hover:border-2 hover:rounded-2xl hover:border-white  ${
-              isActive ? "border-2 rounded-2xl border-white " : ""
+            `text-black lg:text-white p-3 hover:border-2 hover:rounded-2xl hover:border-white  ${isActive ? "border-2 rounded-2xl border-white " : ""
             }`
           }
         >
@@ -35,8 +35,7 @@ const Navbar = () => {
         <NavLink
           to="/dashboard"
           className={({ isActive }) =>
-            `text-black lg:text-white p-3 hover:border-2 hover:rounded-2xl hover:border-white  ${
-              isActive ? "border-2 rounded-2xl border-white " : ""
+            `text-black lg:text-white p-3 hover:border-2 hover:rounded-2xl hover:border-white  ${isActive ? "border-2 rounded-2xl border-white " : ""
             }`
           }
         >
@@ -47,8 +46,7 @@ const Navbar = () => {
         <NavLink
           to="/about-us"
           className={({ isActive }) =>
-            `text-black lg:text-white p-3 hover:border-2 hover:rounded-2xl hover:border-white  ${
-              isActive ? "border-2 rounded-2xl border-white " : ""
+            `text-black lg:text-white p-3 hover:border-2 hover:rounded-2xl hover:border-white  ${isActive ? "border-2 rounded-2xl border-white " : ""
             }`
           }
         >
@@ -59,8 +57,7 @@ const Navbar = () => {
         <NavLink
           to="/contact-us"
           className={({ isActive }) =>
-            `text-black lg:text-white p-3 hover:border-2 hover:rounded-2xl hover:border-white  ${
-              isActive ? "border-2 rounded-2xl border-white " : ""
+            `text-black lg:text-white p-3 hover:border-2 hover:rounded-2xl hover:border-white  ${isActive ? "border-2 rounded-2xl border-white " : ""
             }`
           }
         >
@@ -69,6 +66,16 @@ const Navbar = () => {
       </li>
     </>
   );
+
+  const handleSignOut = () => {
+    signOutUser()
+      .then(() => {
+        console.log("Sign out successful");
+      })
+      .catch((error) => {
+        console.error("Error signing out:", error);
+      });
+  }
 
   return (
     <div>
@@ -80,24 +87,32 @@ const Navbar = () => {
             className="flex items-center space-x-3 rtl:space-x-reverse"
           >
             <div className="w-15 md:w-20 rounded-full">
-              <img className="rounded-full"src={logo} alt="Logo" />
+              <img className="rounded-full" src={logo} alt="Logo" />
             </div>
           </Link>
 
           {/* Login & Registration */}
           <div className="flex md:order-2 space-x-3">
-            <Link
-              to="/auth/login"
-              className="p-3 border-2 rounded-2xl shadow-2xl font-bold primary text-white hover:bg-red-500"
-            >
-              Login
-            </Link>
-            <Link
-              to="/auth/register"
-              className="p-3 border-2 rounded-2xl shadow-2xl font-bold primary text-white hover:bg-red-500"
-            >
-              Registration
-            </Link>
+            {
+              users ? <button onClick={handleSignOut} className="p-3 border-2 rounded-2xl shadow-2xl font-bold primary text-white hover:bg-red-500" >Log Out</button> : <>
+                <Link
+                  to="/auth/login"
+                  className="p-3 border-2 rounded-2xl shadow-2xl font-bold primary text-white hover:bg-red-500"
+                >
+                  Login
+                </Link>
+                <Link
+                  to="/auth/register"
+                  className="p-3 border-2 rounded-2xl shadow-2xl font-bold primary text-white hover:bg-red-500"
+                >
+                  Registration
+                </Link>
+              </>
+            }
+
+
+
+
 
             {/* Hamburger Button */}
             <button
@@ -135,9 +150,8 @@ const Navbar = () => {
 
           {/* Nav Links */}
           <div
-            className={`${
-              isOpen ? "block bg-white" : "hidden"
-            } w-full lg:flex lg:w-auto lg:order-1`}
+            className={`${isOpen ? "block bg-white" : "hidden"
+              } w-full lg:flex lg:w-auto lg:order-1`}
             id="navbar-sticky"
           >
             <ul className="flex flex-col p-4 lg:p-0 mt-10 font-medium border border-gray-100 rounded-lg md:space-y-2 lg:space-x-8 lg:flex-row  md:mt-0 md:border-0 ">

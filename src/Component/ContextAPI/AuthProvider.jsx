@@ -1,28 +1,38 @@
-import { createUserWithEmailAndPassword, GoogleAuthProvider, signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
-import React, { createContext, useState } from 'react';
+import { createUserWithEmailAndPassword, GoogleAuthProvider, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut } from 'firebase/auth';
+import React, { createContext, useEffect, useState } from 'react';
 import auth from '../Firebase/Firebase.config';
 
 export const ContextAPI = createContext('');
 const AuthProvider = ({ children }) => {
     const provider = new GoogleAuthProvider();
     const [selected, setSelected] = useState("asc");
+    const [users, setUser] = useState(null);
+    const [loading, setLoading] = useState(true);
     const handleMainDropdown = (value) => {
         setSelected(value);
     }
-    
-    const createUser =(email, password) =>{
+
+    const createUser = (email, password) => {
+        setLoading(true);
         return createUserWithEmailAndPassword(auth, email, password);
     }
 
     const signInUser = (email, password) => {
-        return signInWithEmailAndPassword(auth, email, password);};
-    
+        setLoading(true);
+        return signInWithEmailAndPassword(auth, email, password);
+    };
+
     const signUpWithGoogle = () => {
-        return signInWithPopup(auth, provider)
+        setLoading(true);
+        return signInWithPopup(auth, provider);
     }
 
+    const signOutUser = () => {
+        setLoading(false);
+        return signOut(auth);
+    }
     // Function to sort users by age based on the homepage of customer
-     const sortUsersByAge = (users, selected) => {
+    const sortUsersByAge = (users, selected) => {
         if (selected === 'asc') {
             // Sort by age ascending
             return [...users].sort((a, b) => a.age - b.age);
@@ -34,11 +44,28 @@ const AuthProvider = ({ children }) => {
             return users;
         }
     };
+
+    useEffect(() => {
+        const Unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+            if (currentUser) {
+                console.log(currentUser);
+                setUser(currentUser);
+                setLoading(false);
+            }
+            else {
+                setUser(null);
+                setLoading(false);
+            }
+        });
+        return () => {
+            Unsubscribe();
+        };
+    }, [])
     const userinfo = {
-        handleMainDropdown, selected,sortUsersByAge,createUser,signInUser,signUpWithGoogle
+        handleMainDropdown, selected, sortUsersByAge, createUser, signInUser, signUpWithGoogle, signOutUser, loading, users
     }
 
-   
+
     return (
         <ContextAPI.Provider value={userinfo}>
             {children}
