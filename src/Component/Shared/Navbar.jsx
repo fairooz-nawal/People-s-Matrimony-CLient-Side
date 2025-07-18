@@ -79,7 +79,7 @@ const Navbar = () => {
             to="/"
             className="flex items-center space-x-3 rtl:space-x-reverse"
           >
-            <div className="w-15 md:w-25 rounded-full">
+            <div className="w-15 md:w-20 rounded-full">
               <img className="rounded-full"src={logo} alt="Logo" />
             </div>
           </Link>
@@ -87,13 +87,13 @@ const Navbar = () => {
           {/* Login & Registration */}
           <div className="flex md:order-2 space-x-3">
             <Link
-              to="/login"
+              to="/auth/login"
               className="p-3 border-2 rounded-2xl shadow-2xl font-bold primary text-white hover:bg-red-500"
             >
               Login
             </Link>
             <Link
-              to="/register"
+              to="/auth/register"
               className="p-3 border-2 rounded-2xl shadow-2xl font-bold primary text-white hover:bg-red-500"
             >
               Registration

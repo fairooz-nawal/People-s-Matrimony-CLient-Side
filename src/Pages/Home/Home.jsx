@@ -7,7 +7,7 @@ import StoryContainer from '../../Component/HomeComponent/StoryContainer';
 
 const Home = () => {
     return (
-        <div className='min-h-screen'>
+        <div className='min-h-screen w-full'>
             <Banner></Banner>
             <AllUserContainer></AllUserContainer>
             <HowItWorks></HowItWorks>
