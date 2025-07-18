@@ -6,7 +6,7 @@ import { ContextAPI } from "../ContextAPI/AuthProvider";
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false); // For mobile menu toggle
   const { users, signOutUser } = useContext(ContextAPI);
- 
+
   const links = (
     <>
       <li>
@@ -32,15 +32,7 @@ const Navbar = () => {
         </NavLink>
       </li>
       <li>
-        <NavLink
-          to="/dashboard"
-          className={({ isActive }) =>
-            `text-black lg:text-white p-3 hover:border-2 hover:rounded-2xl hover:border-white  ${isActive ? "border-2 rounded-2xl border-white " : ""
-            }`
-          }
-        >
-          Dashboard
-        </NavLink>
+
       </li>
       <li>
         <NavLink
@@ -67,15 +59,7 @@ const Navbar = () => {
     </>
   );
 
-  const handleSignOut = () => {
-    signOutUser()
-      .then(() => {
-        console.log("Sign out successful");
-      })
-      .catch((error) => {
-        console.error("Error signing out:", error);
-      });
-  }
+
 
   return (
     <div>
@@ -94,7 +78,14 @@ const Navbar = () => {
           {/* Login & Registration */}
           <div className="flex md:order-2 space-x-3">
             {
-              users ? <button onClick={handleSignOut} className="p-3 border-2 rounded-2xl shadow-2xl font-bold primary text-white hover:bg-red-500" >Log Out</button> : <>
+              users ? <>
+                <Link
+                  to="/dashboard"
+                  className="p-3 border-2 rounded-2xl shadow-2xl font-bold primary text-white hover:bg-red-500"
+                >
+                  Dashboard
+                </Link>
+              </> : <>
                 <Link
                   to="/auth/login"
                   className="p-3 border-2 rounded-2xl shadow-2xl font-bold primary text-white hover:bg-red-500"
@@ -109,10 +100,6 @@ const Navbar = () => {
                 </Link>
               </>
             }
-
-
-
-
 
             {/* Hamburger Button */}
             <button
