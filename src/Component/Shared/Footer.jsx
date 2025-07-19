@@ -4,11 +4,11 @@ import foot from "../../assets/mainlogo.png"
 const Footer = () => {
     return (
 
-        <div className="w-full relative h-[780px] md:h-[450px] lg:h-[500px]">
+        <div className="w-full relative h-[780px] md:h-[450px] lg:h-[500px] border-2">
             <img className='w-full h-full object-cover' src={bg} alt="" />
             <div className="absolute inset-0 bg-black opacity-50"></div>
             <footer className="absolute bottom-0 w-full">
-                <div className="mx-auto w-full max-w-screen-xl p-4 py-6 lg:py-8">
+                <div className="mx-auto w-full  p-4 py-6 lg:py-8">
                     <div className="md:flex md:justify-between">
                         <div className="mb-6 md:mb-0 w-full md:w-3/4 lg:w-2/6">
                             <a href="https://flowbite.com/" className="flex items-center">

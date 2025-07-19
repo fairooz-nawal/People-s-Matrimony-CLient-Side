@@ -6,11 +6,11 @@ const SingleUserCard = ({ singleuser,index }) => {
     return (
         <div>
             <div className="w-full bg-white border border-gray-200 rounded-lg shadow-sm">
-                <div className="w-[300px] h-[300px] mx-auto">
-                     <img className="rounded-full w-full h-full" src={profileImage} alt="product image" />
+                <div className="w-full h-[300px] lg:w-[300px] lg:h-[300px] mx-auto">
+                     <img className="rounded-2xl lg:rounded-full w-full h-full object-cover" src={profileImage} alt="product image" />
                 </div>
                    
-                <div className="px-5 pb-5 mt-2 space-y-2">
+                <div className="px-5 pb-5 mt-2 space-y-2 h-[250px]">
                     <a href="#">
                         <h1 className="text-xl  font-semibold tracking-tight text-gray-900">Id:  <span className="text-xl text-gray-500">{index}</span></h1>
                         <h1 className="text-lg font-semibold text-gray-900">Type:  {gender}</h1>

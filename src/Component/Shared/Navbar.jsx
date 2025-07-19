@@ -5,7 +5,7 @@ import { ContextAPI } from "../ContextAPI/AuthProvider";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false); // For mobile menu toggle
-  const { users, signOutUser } = useContext(ContextAPI);
+  const { users } = useContext(ContextAPI);
 
   const links = (
     <>
@@ -13,7 +13,7 @@ const Navbar = () => {
         <NavLink
           to="/"
           className={({ isActive }) =>
-            `text-black lg:text-white p-3 hover:border-2 hover:rounded-2xl hover:border-white   ${isActive ? "md:border-2 rounded-2xl border-white " : ""
+            `text-black lg:text-white p-3 hover:border-2 hover:rounded-2xl hover:border-white   ${isActive ? "border-2 rounded-2xl lg:border-white " : ""
             }`
           }
         >
@@ -24,7 +24,7 @@ const Navbar = () => {
         <NavLink
           to="/biodatas"
           className={({ isActive }) =>
-            `text-black lg:text-white p-3 hover:border-2 hover:rounded-2xl hover:border-white  ${isActive ? "border-2 rounded-2xl border-white " : ""
+            `text-black lg:text-white p-3 hover:border-2 hover:rounded-2xl hover:border-white  ${isActive ? "border-2 rounded-2xl lg:border-white " : ""
             }`
           }
         >
@@ -38,7 +38,7 @@ const Navbar = () => {
         <NavLink
           to="/about-us"
           className={({ isActive }) =>
-            `text-black lg:text-white p-3 hover:border-2 hover:rounded-2xl hover:border-white  ${isActive ? "border-2 rounded-2xl border-white " : ""
+            `text-black lg:text-white p-3 hover:border-2 hover:rounded-2xl hover:border-white  ${isActive ? "border-2 rounded-2xl lg:border-white " : ""
             }`
           }
         >
@@ -49,7 +49,7 @@ const Navbar = () => {
         <NavLink
           to="/contact-us"
           className={({ isActive }) =>
-            `text-black lg:text-white p-3 hover:border-2 hover:rounded-2xl hover:border-white  ${isActive ? "border-2 rounded-2xl border-white " : ""
+            `text-black lg:text-white p-3 hover:border-2 hover:rounded-2xl hover:border-white  ${isActive ? "border-2 rounded-2xl lg:border-white " : ""
             }`
           }
         >
@@ -141,7 +141,7 @@ const Navbar = () => {
               } w-full lg:flex lg:w-auto lg:order-1`}
             id="navbar-sticky"
           >
-            <ul className="flex flex-col p-4 lg:p-0 mt-10 font-medium border border-gray-100 rounded-lg md:space-y-2 lg:space-x-8 lg:flex-row  md:mt-0 md:border-0 ">
+            <ul className="flex flex-col p-4 lg:p-0 mt-5 space-y-4 font-medium border border-gray-100 rounded-lg md:space-y-2 lg:space-x-8 lg:flex-row  md:mt-0 md:border-0 ">
               {links}
             </ul>
           </div>

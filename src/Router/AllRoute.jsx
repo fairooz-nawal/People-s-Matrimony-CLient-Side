@@ -8,7 +8,7 @@ import Login from "../Pages/Login";
 import ProtectedRoute from "./ProtectedRoutes";
 import BiodataDetails from "../Pages/BioDataDetail";
 import DashBoard from "../Pages/DashBoard/DashBoard";
-import CheckOut from "../Pages/CheckOut";
+import CheckOut from "../Pages/Payment/CheckOut";
 
 
 export const router = createBrowserRouter([

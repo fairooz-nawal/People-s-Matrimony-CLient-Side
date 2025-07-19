@@ -39,11 +39,11 @@ const SuccessCounter = () => {
                 Here’s what we’ve achieved so far on People’s Matrimony ❤️
             </p>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 w-11/12 mx-auto">
 
                 {/* Total Biodata */}
                 <div className="relative">
-                    <div className="w-[250px] h-[270px] md:w-[300px] md:h-[370px]">
+                    <div className="w-[250px] h-[270px] md:w-[260px] md:h-[370px] mx-auto">
                         <img className="rounded-full w-full h-full" src={img1} alt="" />
                     </div>
                     <div className="bg-[#0d0d0da7] absolute bottom-[20%] left-[15%]  w-[200px] h-[100px] rounded-full">
@@ -57,7 +57,7 @@ const SuccessCounter = () => {
 
                 {/* Female Biodata */}
                 <div className="relative">
-                    <div className="w-[250px] h-[270px] md:w-[300px] md:h-[370px]">
+                    <div className="w-[250px] h-[270px] md:w-[260px] md:h-[370px] mx-auto">
                         <img className="rounded-full w-full h-full" src={img2} alt="" />
                     </div>
                     <div className="bg-[#0d0d0da7] absolute bottom-[20%] left-[15%]  w-[200px] h-[100px] rounded-full">
@@ -71,7 +71,7 @@ const SuccessCounter = () => {
 
                 {/* Male Biodata */}
                    <div className="relative">
-                    <div className="w-[250px] h-[270px] md:w-[300px] md:h-[370px]">
+                    <div className="w-[250px] h-[270px] md:w-[260px] md:h-[370px] mx-auto">
                         <img className="rounded-full w-full h-full" src={img3} alt="" />
                     </div>
                     <div className="bg-[#0d0d0da7] absolute bottom-[20%] left-[15%]  w-[200px] h-[100px] rounded-full">
@@ -84,7 +84,7 @@ const SuccessCounter = () => {
 
                 {/* Marriages Completed */}
                    <div className="relative">
-                    <div className="w-[250px] h-[270px] md:w-[300px] md:h-[370px]">
+                    <div className="w-[200px] h-[270px] md:w-[260px] md:h-[370px] mx-auto">
                         <img className="rounded-full w-full h-full" src={img4} alt="" />
                     </div>
                     <div className="bg-[#0d0d0da7] absolute bottom-[20%] left-[15%]  w-[200px] h-[100px] rounded-full">

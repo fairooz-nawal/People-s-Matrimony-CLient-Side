@@ -40,7 +40,7 @@ const SingleBiodata = ({ single, index }) => {
         {/* View Profile Button */}
         <Link to={`/biodataDetail/${_id}`}
           onClick={onViewProfile}
-          className="w-full secondarybg text-white py-2 px-4 rounded-lg hover:secondarybg transition duration-300"
+          className="w-full primary text-white py-2 px-4 rounded-lg transition duration-300"
         >
           View Profile
         </Link>

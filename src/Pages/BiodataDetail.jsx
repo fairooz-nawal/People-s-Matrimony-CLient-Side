@@ -126,7 +126,7 @@ const BiodataDetails = () => {
                                 <p>Phone: {mobileNumber}</p>
                             </div>
                         ) : (
-                            <p className="text-red-500">
+                            <p className="text-red-500 font-bold text-xl">
                                 Contact information is only visible to Premium members.
                             </p>
                         )}

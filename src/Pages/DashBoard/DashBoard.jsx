@@ -8,8 +8,6 @@ const DashBoard = () => {
     const { users, signOutUser } = useContext(ContextAPI);
     const [isOpen, setIsOpen] = useState(true);
     const [currentRoute, setCurrentRoute] = useState("edit-biodata");
-
-    console.log(users)
     const handleSignOut = () => {
         signOutUser()
             .then(() => {
