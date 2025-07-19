@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import SingleBiodata from './SingleBiodata';
 import Filter from './Filter';
-
+import bg from "../assets/seeAllBioData.jpg"
 
 const BioDataContainer = () => {
     const { data: allBioData, isPending, error } = useQuery({
@@ -20,16 +20,16 @@ const BioDataContainer = () => {
     }
 
     return (
-        <div className='w-full'>
-            <div className="pt-[120px] w-full secondarybg border-2">
-                <p className="text-center text-base font-bold text-white">All Biodata</p>
-                <h1 className='text-4xl font-bold text-center text-white cursive mb-5'>Our Users Biodata</h1>
+        <div className='w-full' >
+            <div style = {{backgroundImage:  `url(${bg})`, backgroundSize: 'cover', backgroundPosition: 'center'}} className="pt-[150px] w-full border-2">
+                <p className="text-center text-lg font-bold secondary">All Biodata</p>
+                <h1 className='text-5xl font-semibold text-center cursive mb-5 text-black'>Our Users Biodata</h1>
             </div>
             <Filter></Filter>
 
-            <div className="w-9/12 mx-auto py-[100px] grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div className="w-11/12 mx-auto py-[100px] grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 {
-                    allBioData.map((single , index) => <SingleBiodata index={index+1} single={single}></SingleBiodata>)
+                    allBioData.map((single , index) => <SingleBiodata key={index} index={index+1} single={single}></SingleBiodata>)
                 }
             </div>
         </div>

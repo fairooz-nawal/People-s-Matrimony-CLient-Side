@@ -2,15 +2,15 @@ import React, { useContext } from "react";
 import { useNavigate, useParams } from "react-router";
 import axios from "axios";
 import { ContextAPI } from "../Component/ContextAPI/AuthProvider";
-import { useLoaderData } from "react-router";
+import Swal from 'sweetalert2'
 import { useQuery } from "@tanstack/react-query";
 
 const BiodataDetails = () => {
     const navigate = useNavigate();
-    const { user } = useContext(ContextAPI); 
-    const {id:_id} = useParams();
+    const { users } = useContext(ContextAPI);
+    const { id: _id } = useParams();
 
-    const {data:Details, isPending} = useQuery ({
+    const { data: Details, isPending } = useQuery({
         queryKey: ['biodataDetails'],
         queryFn: async () => {
             const res = await axios.get(`http://localhost:5000/alluser/${_id}`);
@@ -18,7 +18,7 @@ const BiodataDetails = () => {
         }
     })
 
-     // Fetch all biodata to find similar ones
+    // Fetch all biodata to find similar ones
     const { data: allBiodata = [] } = useQuery({
         queryKey: ["allBiodata"],
         queryFn: async () => {
@@ -27,7 +27,7 @@ const BiodataDetails = () => {
         },
     });
 
-    if(isPending){
+    if (isPending) {
         return <div className='text-center text-2xl font-bold'>Loading...</div>
     }
 
@@ -39,26 +39,36 @@ const BiodataDetails = () => {
     } = Details;
     // const navigate = useNavigate();
 
-    //   const handleAddToFavourites = async () => {
-    //     try {
-    //       const res = await axios.post(`https://your-api.com/favourites`, {
-    //         biodataId: biodata._id,
-    //         userId: user.uid, // logged-in user
-    //       });
-    //       if (res.data.success) {
-    //         alert("Added to Favourites ✅");
-    //       }
-    //     } catch (err) {
-    //       console.error(err);
-    //       alert("Failed to add to favourites ❌");
-    //     }
-    //   };
+    const handleAddToFavourites = async () => {
+        const favouriteBio = {
+            biodataId: Details._id,
+            userEmail: users?.email,
+        }
+        console.log(favouriteBio);
+        try {
+            console.log("clicked");
+            const res = await axios.post('http://localhost:5000/addFavourite', favouriteBio);
+            console.log(res.data);
+            if (res.data.insertedId) {
+                Swal.fire({
+                    title: "BioData is Added to Favourites",
+                    icon: "success",
+                    draggable: true
+                })
+            }
+        } catch (err) {
+            console.error(err);
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: err,
+            })
+        }
+    };
 
-    //   const handleRequestContact = () => {
-    //     navigate(`/checkout/${biodata._id}`);
-    //   };
 
-     // Filter similar biodata (same gender, exclude current)
+
+    // Filter similar biodata (same gender, exclude current)
     const similarBiodata = allBiodata
         .filter(
             (biodata) =>
@@ -66,7 +76,7 @@ const BiodataDetails = () => {
         )
         .slice(0, 3); // Limit to 3
 
-    
+
     // const handleRequestContact = () => {
     //     navigate(`/checkout/${_id}`);
     // };
@@ -78,7 +88,7 @@ const BiodataDetails = () => {
 
     return (
         <div className="min-h-screen md:max-w-7xl lg:max-w-[1600px] mx-auto bg-white p-6 md:my-[150px]">
-             <h1 className='text-4xl lg:text-7xl primary font-bold text-center text-white cursive md:w-9/12 mx-auto p-5'>Details of the Person</h1>
+            <h1 className='text-4xl lg:text-7xl primary font-bold text-center text-white cursive md:w-9/12 mx-auto p-5'>Details of the Person</h1>
             <div className="grid grid-cols-1 md:grid-cols-2 shadow-md gap-2  md:w-9/12 lg:w-9/12 mx-auto">
                 <div className="border-2 bg-gray-300">
                     <img
@@ -106,7 +116,7 @@ const BiodataDetails = () => {
                     <p className="text-gray-500">Expected Partner Height: {expectedPartnerHeight}</p>
                     <p className="text-gray-500">Expected Partner Weight: {expectedPartnerWeight}</p>
                     <p className="text-gray-500">Expected Partner Age: {expectedPartnerAge}</p>
-                    
+
 
                     {/* Contact Info */}
                     <div className="mt-4">
@@ -125,7 +135,7 @@ const BiodataDetails = () => {
                     {/* Buttons */}
                     <div className="mt-6 flex gap-4">
                         <button
-                            // onClick={handleAddToFavourites}
+                            onClick={handleAddToFavourites}
                             className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
                         >
                             Add to Favourites

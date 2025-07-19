@@ -2,11 +2,13 @@ import React, { useContext, useState } from "react";
 import EditBio from "./EditBIo";
 import { ContextAPI } from "../../Component/ContextAPI/AuthProvider";
 import bg from "../../assets/adduserbg.png";
+import ViewBioData from "./ViewBioData";
 const DashBoard = () => {
-    const { signOutUser } = useContext(ContextAPI);
+    const { users, signOutUser } = useContext(ContextAPI);
     const [isOpen, setIsOpen] = useState(true);
     const [currentRoute, setCurrentRoute] = useState("edit-biodata");
 
+    console.log(users)
     const handleSignOut = () => {
         signOutUser()
             .then(() => {
@@ -98,7 +100,7 @@ const DashBoard = () => {
                             <EditBio></EditBio>
                         )}
                         {currentRoute === "view-biodata" && (
-                            <div>View Biodata Page</div>
+                            <ViewBioData email={users?.email}></ViewBioData>
                         )}
                         {currentRoute === "contact-requests" && (
                             <div>My Contact Requests Page</div>

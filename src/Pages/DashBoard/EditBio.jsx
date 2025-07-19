@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import { useForm } from "react-hook-form";
 import { ContextAPI } from "../../Component/ContextAPI/AuthProvider";
+import axios from "axios";
 
 const EditBio = () => {
     const {users} = useContext(ContextAPI);
@@ -11,8 +12,14 @@ const EditBio = () => {
     } = useForm();
 
     const onSubmit = (data) => {
-        console.log("Form Data:", data);
-        alert("Form submitted successfully!");
+        console.log(data);
+        axios.post('http://localhost:5000/alluser', data)
+            .then((response) => {
+                console.log( response.data);
+            })
+            .catch((error) => {
+                console.error("Error submitting biodata:", error);
+            });
     };
 
     const divisions = [
@@ -354,6 +361,7 @@ const EditBio = () => {
                     <input
                         type="email"
                         value={users?.email || ""}
+                         {...register("contactEmail")}
                         readOnly
                         className="w-full text-gray-700 border border-gray-300 rounded-lg p-2 bg-gray-100"
                     />
@@ -384,7 +392,7 @@ const EditBio = () => {
                     type="submit"
                     className="w-full bg-white text-red-500  rounded-lg p-3 font-semibold hover:opacity-90 transition"
                 >
-                    Submit Biodata
+                    Save and Publish Biodata
                 </button>
             </form>
        
