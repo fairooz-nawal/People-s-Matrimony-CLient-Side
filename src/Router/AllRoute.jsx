@@ -8,6 +8,7 @@ import Login from "../Pages/Login";
 import ProtectedRoute from "./ProtectedRoutes";
 import BiodataDetails from "../Pages/BioDataDetail";
 import DashBoard from "../Pages/DashBoard/DashBoard";
+import CheckOut from "../Pages/CheckOut";
 
 
 export const router = createBrowserRouter([
@@ -26,6 +27,10 @@ export const router = createBrowserRouter([
         {
             path:"/biodataDetail/:id",
             element:<ProtectedRoute><BiodataDetails></BiodataDetails></ProtectedRoute>
+        },
+        {
+            path:"/checkout/:id",
+            element:<ProtectedRoute><CheckOut></CheckOut></ProtectedRoute>
         },
         {
             path:"/dashboard",

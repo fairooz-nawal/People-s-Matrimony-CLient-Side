@@ -77,9 +77,9 @@ const BiodataDetails = () => {
         .slice(0, 3); // Limit to 3
 
 
-    // const handleRequestContact = () => {
-    //     navigate(`/checkout/${_id}`);
-    // };
+    const handleRequestContact = () => {
+        navigate(`/checkout/${_id}`);
+    };
 
     const handleReload = (id) => {
         navigate(`/biodataDetail/${id}`);
@@ -143,7 +143,7 @@ const BiodataDetails = () => {
 
                         {!isPremium && (
                             <button
-                                //   onClick={handleRequestContact}
+                                  onClick={handleRequestContact}
                                 className="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700"
                             >
                                 Request Contact Info

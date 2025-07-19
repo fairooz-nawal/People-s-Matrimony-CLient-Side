@@ -3,6 +3,7 @@ import EditBio from "./EditBIo";
 import { ContextAPI } from "../../Component/ContextAPI/AuthProvider";
 import bg from "../../assets/adduserbg.png";
 import ViewBioData from "./ViewBioData";
+import ViewFavouriteBio from "./ViewFavouriteBio";
 const DashBoard = () => {
     const { users, signOutUser } = useContext(ContextAPI);
     const [isOpen, setIsOpen] = useState(true);
@@ -106,7 +107,7 @@ const DashBoard = () => {
                             <div>My Contact Requests Page</div>
                         )}
                         {currentRoute === "favourites" && (
-                            <div>Favourites Biodata Page</div>
+                            <ViewFavouriteBio></ViewFavouriteBio>
                         )}
                 </div>
             </div>
