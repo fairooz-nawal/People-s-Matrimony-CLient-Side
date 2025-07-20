@@ -5,15 +5,28 @@ import bg2 from "../assets/form.jpg"
 import { Link } from 'react-router';
 import { ContextAPI } from '../Component/ContextAPI/AuthProvider';
 import Swal from 'sweetalert2'
+import axios from 'axios';
+import useAxios from '../Component/Hooks/useAxios';
 const Registration = () => {
+    const axiosInstance = useAxios();
     const { register, handleSubmit, formState: { errors } } = useForm();
-    const { createUser } = useContext(ContextAPI);
+    const { createUser} = useContext(ContextAPI);
     const onSubmit = (data) => {
         console.log(data);
         createUser(data.email, data.password)
-            .then((res) => {
+            .then(async (res) => {
                 console.log(res);
                 const user = res.user;
+                const userInfo = {
+                    email: data.email,
+                    role: 'user',
+                    createdAt: new Date().toISOString(),
+                    last_log_in: new Date().toISOString()
+                }
+
+                const userRes = await axiosInstance.post('/registereduser', userInfo);
+                console.log(userRes.data)
+
                 if (user) {
                     Swal.fire({
                         title: "Registration Done Successfully",

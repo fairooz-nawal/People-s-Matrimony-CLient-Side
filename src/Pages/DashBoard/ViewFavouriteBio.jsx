@@ -3,13 +3,15 @@ import axios from 'axios';
 import React, { useContext } from 'react';
 import FavBioRow from './FavBioRow';
 import { ContextAPI } from '../../Component/ContextAPI/AuthProvider';
+import useAxiosSecure from '../../Component/Hooks/useAxiosSecure';
 
 const ViewFavouriteBio = () => {
+    const axiosSecure = useAxiosSecure();
     const { users } = useContext(ContextAPI);
     const { data, isPending, isError } = useQuery({
         queryKey: ['favouriteBiodata'],
         queryFn: async () => {
-            const res = await axios.get('http://localhost:5000/allFavourites');
+            const res = await axiosSecure.get('/allFavourites');
             return res.data;
         }
     })
@@ -17,7 +19,7 @@ const ViewFavouriteBio = () => {
     const { data: alluser, isPending: allPending, isError: allError } = useQuery({
         queryKey: ['allUser'],
         queryFn: async () => {
-            const res = await axios.get('http://localhost:5000/alluser');
+            const res = await axiosSecure.get('/alluser');
             return res.data
         }
     })

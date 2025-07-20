@@ -5,7 +5,7 @@ import StoryCard from './StoryCard';
 
 
 const StoryContainer = () => {
-     const [sortedStories, setSortedStories] = useState([]);
+    const [sortedStories, setSortedStories] = useState([]);
     const { data: marriages, isPending } = useQuery({
         queryKey: ['successStories'],
         queryFn: async () => {

@@ -2,10 +2,12 @@ import React, { useContext } from "react";
 import { useForm } from "react-hook-form";
 import { useQuery } from "@tanstack/react-query";
 import { ContextAPI } from "../../Component/ContextAPI/AuthProvider";
-import axios from "axios";
 import Swal from "sweetalert2";
+import useAxios from "../../Component/Hooks/useAxios";
+import useAxiosSecure from "../../Component/Hooks/useAxiosSecure";
 
 const EditBio = () => {
+    const axiosSecure =useAxiosSecure();
     const { users } = useContext(ContextAPI);
     const {
         register,
@@ -17,7 +19,7 @@ const EditBio = () => {
     const { data: userData, isLoading, isError } = useQuery({
         queryKey: ["biodata", users?.email],
         queryFn: async () => {
-            const res = await axios.get(`http://localhost:5000/singlealluser?email=${users?.email}`);
+            const res = await axiosSecure.get(`/singlealluser?email=${users?.email}`);
             return res.data;
         },
         enabled: !!users?.email,
@@ -43,7 +45,7 @@ const EditBio = () => {
                 ...data,
             };
 
-            const res = await axios.put(`http://localhost:5000/alluser/${userData?._id}`, updatedBio);
+            const res = await axiosSecure.put(`/alluser/${userData?._id}`, updatedBio);
 
             if (res.data.modifiedCount > 0) {
                 Swal.fire({

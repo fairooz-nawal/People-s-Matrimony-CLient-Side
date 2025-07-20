@@ -3,12 +3,14 @@ import axios from 'axios';
 import SingleBiodata from './SingleBiodata';
 import Filter from './Filter';
 import bg from "../assets/seeAllBioData.jpg"
+import useAxiosSecure from '../Component/Hooks/useAxiosSecure';
 
 const BioDataContainer = () => {
+    const axiosSecure = useAxiosSecure();
     const { data: allBioData, isPending, error } = useQuery({
         queryKey: ['allBioData'],
         queryFn: async () => {
-            const res = await axios.get('http://localhost:5000/alluser')
+            const res = await axiosSecure.get('/alluser')
             return res.data;
         }
     })

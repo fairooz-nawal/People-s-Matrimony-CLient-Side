@@ -3,11 +3,13 @@ import EditBio from "./EditBIo";
 import { ContextAPI } from "../../Component/ContextAPI/AuthProvider";
 import bg from "../../assets/adduserbg.png";
 import ViewBioData from "./ViewBioData";
+import UserContactTable from "./UserContactTable";
 import ViewFavouriteBio from "./ViewFavouriteBio";
+import CustomerUL from "./CustomerUL";
 const DashBoard = () => {
-    const { users, signOutUser } = useContext(ContextAPI);
+    const { users, signOutUser,currentRoute, setCurrentRoute } = useContext(ContextAPI);
     const [isOpen, setIsOpen] = useState(true);
-    const [currentRoute, setCurrentRoute] = useState("edit-biodata");
+   
     const handleSignOut = () => {
         signOutUser()
             .then(() => {
@@ -38,48 +40,7 @@ const DashBoard = () => {
 
                 {/* Sidebar Links */}
                 <div className="py-4">
-                    <ul className="space-y-3 px-4">
-                        <li>
-                            <button
-                                onClick={() => setCurrentRoute("edit-biodata")}
-                                className="block w-full text-left p-2 rounded hover:bg-gray-100 hover:text-red-400 text-white font-medium"
-                            >
-                                Edit Biodata
-                            </button>
-                        </li>
-                        <li>
-                            <button
-                                onClick={() => setCurrentRoute("view-biodata")}
-                                className="block w-full text-left p-2 rounded hover:bg-gray-100 hover:text-red-400 text-white font-medium"
-                            >
-                                View Biodata
-                            </button>
-                        </li>
-                        <li>
-                            <button
-                                onClick={() => setCurrentRoute("contact-requests")}
-                                className="block w-full text-left p-2 rounded hover:bg-gray-100 hover:text-red-400 text-white font-medium"
-                            >
-                                My Contact Requests
-                            </button>
-                        </li>
-                        <li>
-                            <button
-                                onClick={() => setCurrentRoute("favourites")}
-                                className="block w-full text-left p-2 rounded hover:bg-gray-100 hover:text-red-400 text-white font-medium"
-                            >
-                                Favourites Biodata
-                            </button>
-                        </li>
-                        <li>
-                            <button
-                                onClick={handleSignOut}
-                                className="w-full p-2 rounded bg-red-600 text-white border-red-600 hover:bg-red-50 hover:text-red-600 font-medium"
-                            >
-                                Logout
-                            </button>
-                        </li>
-                    </ul>
+                   <CustomerUL setCurrentRoute={setCurrentRoute} handleSignOut={handleSignOut}></CustomerUL>
                 </div>
             </div>
 
@@ -102,7 +63,7 @@ const DashBoard = () => {
                             <ViewBioData email={users?.email}></ViewBioData>
                         )}
                         {currentRoute === "contact-requests" && (
-                            <div>My Contact Requests Page</div>
+                            <UserContactTable></UserContactTable>
                         )}
                         {currentRoute === "favourites" && (
                             <ViewFavouriteBio></ViewFavouriteBio>

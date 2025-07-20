@@ -4,16 +4,18 @@ import axios from "axios";
 import { ContextAPI } from "../Component/ContextAPI/AuthProvider";
 import Swal from 'sweetalert2'
 import { useQuery } from "@tanstack/react-query";
+import useAxiosSecure from "../Component/Hooks/useAxiosSecure";
 
 const BiodataDetails = () => {
     const navigate = useNavigate();
+    const axiosSecure = useAxiosSecure();
     const { users } = useContext(ContextAPI);
     const { id: _id } = useParams();
 
     const { data: Details, isPending } = useQuery({
         queryKey: ['biodataDetails'],
         queryFn: async () => {
-            const res = await axios.get(`http://localhost:5000/alluser/${_id}`);
+            const res = await axiosSecure.get(`/alluser/${_id}`);
             return res.data;
         }
     })
@@ -22,7 +24,7 @@ const BiodataDetails = () => {
     const { data: allBiodata = [] } = useQuery({
         queryKey: ["allBiodata"],
         queryFn: async () => {
-            const res = await axios.get(`http://localhost:5000/alluser`);
+            const res = await axiosSecure.get(`/alluser`);
             return res.data;
         },
     });
@@ -47,7 +49,7 @@ const BiodataDetails = () => {
         console.log(favouriteBio);
         try {
             console.log("clicked");
-            const res = await axios.post('http://localhost:5000/addFavourite', favouriteBio);
+            const res = await axiosSecure.post('/addFavourite', favouriteBio);
             console.log(res.data);
             if (res.data.insertedId) {
                 Swal.fire({

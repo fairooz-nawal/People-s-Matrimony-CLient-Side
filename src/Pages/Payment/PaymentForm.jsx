@@ -3,7 +3,9 @@ import { useContext } from 'react';
 import Swal from "sweetalert2";
 import { ContextAPI } from '../../Component/ContextAPI/AuthProvider';
 import axios from 'axios';
+import useAxiosSecure from '../../Component/Hooks/useAxiosSecure';
 const PaymentForm = ({ id }) => {
+    const axiosSecure = useAxiosSecure();
     const { users } = useContext(ContextAPI);
     const currentEmail = users?.email;
     const stripe = useStripe();
@@ -38,7 +40,7 @@ const PaymentForm = ({ id }) => {
 
         //create payment intent
 
-        const res = await axios.post('http://localhost:5000/create-payment-intent', {
+        const res = await axiosSecure.post('/create-payment-intent', {
             amount: amount,
             BioDataId: id,
             email: currentEmail
@@ -70,8 +72,18 @@ const PaymentForm = ({ id }) => {
                     title: "Success!",
                     text: "Your Payment is done Successfully",
                     icon: "success",
-                })
-                
+                });
+
+                // Save payment details to backend
+               const res = await axiosSecure.post('/save-payment', {
+                    biodataId: id,
+                    email: currentEmail,
+                    amount: amount,
+                    paymentIntentId: result.paymentIntent.id
+                });
+
+                console.log(res.data);
+
             }
         }
         console.log("payment intent", res.data.clientSecret);

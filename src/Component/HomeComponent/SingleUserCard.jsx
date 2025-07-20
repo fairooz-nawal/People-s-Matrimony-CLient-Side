@@ -6,7 +6,7 @@ const SingleUserCard = ({ singleuser,index }) => {
     return (
         <div>
             <div className="w-full bg-white border border-gray-200 rounded-lg shadow-sm">
-                <div className="w-full h-[300px] lg:w-[300px] lg:h-[300px] mx-auto">
+                <div className="w-[250px] h-[300px] mx-auto border-3 border-gray-400 rounded-2xl lg:rounded-full">
                      <img className="rounded-2xl lg:rounded-full w-full h-full object-cover" src={profileImage} alt="product image" />
                 </div>
                    

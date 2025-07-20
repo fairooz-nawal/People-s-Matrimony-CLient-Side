@@ -1,13 +1,15 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import React from "react";
+import useAxiosSecure from "../../Component/Hooks/useAxiosSecure";
 
 const ViewBiodata = ({email}) => {
+  const axiosSecure = useAxiosSecure();
     console.log(email);
     const {data:biodata,isPending, isError} = useQuery({
         queryKey: ["biodataDetails", email],
         queryFn: async () => {
-            const res = await axios.get(`http://localhost:5000/singlealluser?email=${email}`);
+            const res = await axiosSecure.get(`/singlealluser?email=${email}`);
             console.log(res.data);
             return res.data;
         }

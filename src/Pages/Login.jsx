@@ -5,9 +5,11 @@ import bg2 from "../assets/form.jpg"
 import { Link, useLocation, useNavigate } from 'react-router';
 import { ContextAPI } from '../Component/ContextAPI/AuthProvider';
 import Swal from 'sweetalert2'
+import useAxios from '../Component/Hooks/useAxios';
 const Login = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
     const { signInUser, signUpWithGoogle } = useContext(ContextAPI);
+    const axiosInstance = useAxios();
     const navigate = useNavigate();
     const location = useLocation();
     console.log(location);
@@ -15,6 +17,7 @@ const Login = () => {
         signInUser(data.email, data.password)
             .then((res) => {
                 const user = res.user;
+                
                 if (user) {
                     Swal.fire({
                         title: "Login Done Successfully",
@@ -38,9 +41,18 @@ const Login = () => {
     }
     const handleGoogle = () => {
         signUpWithGoogle()
-            .then((res) => {
+            .then(async(res) => {
                 const user = res.user;
                 if (user) {
+                    const userInfo = {
+                    email: user?.email,
+                    role: 'user',
+                    createdAt: new Date().toISOString(),
+                    last_log_in: new Date().toISOString()
+                }
+                 
+                const res = await axiosInstance.post('/registereduser', userInfo);
+                console.log("user updated info",res.data);
                     Swal.fire({
                         title: "Login Done Successfully",
                         icon: "success",

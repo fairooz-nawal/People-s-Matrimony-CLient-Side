@@ -1,6 +1,7 @@
 import React from 'react';
 
 const FavBioRow = ({favbio}) => {
+    
     const { name,_id:biodataId , presentDivision, occupation } = favbio;
     return (
         <tbody>

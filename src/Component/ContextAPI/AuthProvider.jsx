@@ -1,4 +1,4 @@
-import { createUserWithEmailAndPassword, GoogleAuthProvider, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut } from 'firebase/auth';
+import { createUserWithEmailAndPassword, GoogleAuthProvider, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile } from 'firebase/auth';
 import React, { createContext, useEffect, useState } from 'react';
 import auth from '../Firebase/Firebase.config';
 
@@ -8,6 +8,7 @@ const AuthProvider = ({ children }) => {
     const [selected, setSelected] = useState("asc");
     const [users, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
+    const [currentRoute, setCurrentRoute] = useState("edit-biodata");
     const handleMainDropdown = (value) => {
         setSelected(value);
     }
@@ -62,7 +63,8 @@ const AuthProvider = ({ children }) => {
         };
     }, [])
     const userinfo = {
-        handleMainDropdown, selected, sortUsersByAge, createUser, signInUser, signUpWithGoogle, signOutUser, loading, users,setLoading
+        handleMainDropdown, selected, sortUsersByAge, createUser, 
+        signInUser, signUpWithGoogle, signOutUser, loading, users, setLoading, currentRoute, setCurrentRoute
     }
 
 
