@@ -56,6 +56,17 @@ const Navbar = () => {
           Contact Us
         </NavLink>
       </li>
+      <li>
+        <NavLink
+          to="/makeAdmin"
+          className={({ isActive }) =>
+            `text-black lg:text-white p-3 hover:border-2 hover:rounded-2xl hover:border-white  ${isActive ? "border-2 rounded-2xl lg:border-white " : ""
+            }`
+          }
+        >
+          Make Admin
+        </NavLink>
+      </li>
     </>
   );
 

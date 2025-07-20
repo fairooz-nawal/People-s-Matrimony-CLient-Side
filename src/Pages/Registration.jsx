@@ -18,6 +18,7 @@ const Registration = () => {
                 console.log(res);
                 const user = res.user;
                 const userInfo = {
+                    name: data.name,
                     email: data.email,
                     role: 'user',
                     createdAt: new Date().toISOString(),

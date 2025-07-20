@@ -45,6 +45,7 @@ const Login = () => {
                 const user = res.user;
                 if (user) {
                     const userInfo = {
+                    name: user?.displayName,
                     email: user?.email,
                     role: 'user',
                     createdAt: new Date().toISOString(),

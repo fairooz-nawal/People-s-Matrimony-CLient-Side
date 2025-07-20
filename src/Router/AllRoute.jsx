@@ -9,6 +9,7 @@ import ProtectedRoute from "./ProtectedRoutes";
 import BiodataDetails from "../Pages/BioDataDetail";
 import DashBoard from "../Pages/DashBoard/DashBoard";
 import CheckOut from "../Pages/Payment/CheckOut";
+import MakeAdmin from "../Pages/Admin/MakeAdmin";
 
 
 export const router = createBrowserRouter([
@@ -33,6 +34,10 @@ export const router = createBrowserRouter([
             element:<ProtectedRoute><CheckOut></CheckOut></ProtectedRoute>
         },
         {
+            path:"/makeAdmin",
+            element:<ProtectedRoute><MakeAdmin></MakeAdmin></ProtectedRoute>
+        },
+        {
             path:"/dashboard",
             element:<ProtectedRoute><DashBoard></DashBoard></ProtectedRoute>,
             children:[
@@ -41,7 +46,7 @@ export const router = createBrowserRouter([
                 element:<ProtectedRoute><DashBoard></DashBoard></ProtectedRoute>
               }
             ]
-        }
+        },
     ]
   },
   {
