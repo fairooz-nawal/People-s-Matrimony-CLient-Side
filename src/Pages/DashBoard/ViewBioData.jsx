@@ -1,28 +1,64 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import React from "react";
+import Swal from "sweetalert2";
 import useAxiosSecure from "../../Component/Hooks/useAxiosSecure";
 
-const ViewBiodata = ({email}) => {
+const ViewBiodata = ({ email }) => {
   const axiosSecure = useAxiosSecure();
-    console.log(email);
-    const {data:biodata,isPending, isError} = useQuery({
-        queryKey: ["biodataDetails", email],
-        queryFn: async () => {
-            const res = await axiosSecure.get(`/singlealluser?email=${email}`);
-            console.log(res.data);
-            return res.data;
-        }
-    })
-    console.log(biodata);
+  console.log(email);
+  const { data: biodata, isPending, isError } = useQuery({
+    queryKey: ["biodataDetails", email],
+    queryFn: async () => {
+      const res = await axiosSecure.get(`/singlealluser?email=${email}`);
+      console.log(res.data);
+      return res.data;
+    }
+  })
+  console.log(biodata);
 
-    isPending && <div className='text-center text-2xl font-bold'>Loading...</div>
-    isError && <div className='text-center text-2xl font-bold'>Error: {isError.message}</div>
-    if (!biodata || biodata.length === 0) { 
-        return <div className='text-center text-2xl font-bold'>No Bio Data Found</div>
+  isPending && <div className='text-center text-2xl font-bold'>Loading...</div>
+  isError && <div className='text-center text-2xl font-bold'>Error: {isError.message}</div>
+  if (!biodata || biodata.length === 0) {
+    return <div className='text-center text-2xl font-bold'>No Bio Data Found</div>
+  }
+
+  const handlePremium = () => {
+    const bioDataInfo = {
+      reqName: biodata.name,
+      reqEmail: biodata.contactEmail,
+      reqBioId: biodata._id
     }
 
-    console.log(biodata);
+    Swal.fire({
+      title: "Do you want to sent Request to make BioData Premium?",
+      showDenyButton: true,
+      showCancelButton: true,
+      confirmButtonText: "Yes",
+      denyButtonText: `No`
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        const req = await axiosSecure.post(`/approvePremium?email=${biodata.contactEmail}`, bioDataInfo)
+        if (req.data.insertedId) {
+          Swal.fire({
+            title: "Success!",
+            text: "SuccessFully Sent request to make BioData premium",
+            icon: "success",
+          })
+        } else {
+          Swal.fire({
+            title: "Request Already Sent Once",
+            text: "You have Already Sent a request to Make Biodata Premium",
+            icon: "info",
+          });
+        }
+      } else if (result.isDenied) {
+        Swal.fire("Request to make BioData Premium is not sent", "", "info");
+      }
+    });
+  }
+
+  console.log(biodata);
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-amber-500 to-pink-500 p-6">
       <div className="max-w-3xl w-full bg-white bg-opacity-80 backdrop-blur-md rounded-lg shadow-2xl p-6 md:p-10">
@@ -101,7 +137,14 @@ const ViewBiodata = ({email}) => {
               <span className="font-normal">{biodata.mobileNumber}</span>
             </p>
           </div>
-        </div>
+        </div><br />
+        <button
+          onClick={handlePremium}
+          type="submit"
+          className="w-full bg-red-400 text-white rounded-lg p-3 font-semibold border-2 border-gray-200 hover:bg-white hover:text-red-400 transition"
+        >
+          Make Bio to Premium
+        </button>
       </div>
     </div>
   );

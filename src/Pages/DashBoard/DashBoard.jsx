@@ -60,7 +60,7 @@ const DashBoard = () => {
                         onClick={() => setIsOpen(true)}
                         className="text-red-400 bg-white p-[10px] rounded-2xl font-bold  hover:border-3 hover:text-white hover:bg-red-500 text-2xl"
                     >
-                        DashBoard Menu View
+                         Click To View Dashboard Menu
                     </button>
                 </div>
 

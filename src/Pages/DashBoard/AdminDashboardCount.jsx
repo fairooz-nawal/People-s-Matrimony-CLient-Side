@@ -16,7 +16,7 @@ const AdminDashboardCount = () => {
         }
     });
 
-    const { totalFemales,totalMales,totalMarriages,totalUsers}=stats
+    const { totalFemales,totalMales,totalUsers}=stats
 // const {} = stats;
 if (isLoading) {
     return (
