@@ -18,16 +18,25 @@ const ApprovedPremium = () => {
     // Mutation to approve premium
     const approvePremiumMutation = useMutation({
         mutationFn: (biodataId) => axiosSecure.patch(`/registereduser?biodataId=${biodataId}`),
-        onSuccess: () => {
-            queryClient.invalidateQueries(["premium-requests"]); // Refresh premium requests
-            queryClient.invalidateQueries(["all-users"]); // Refresh all users if needed
-            Swal.fire({
-                icon: "success",
-                title: "Approved",
-                text: "User has been upgraded to Premium!",
-                timer: 2000,
-                showConfirmButton: false,
-            });
+        onSuccess: async(_data, biodataId) => {
+            try {
+                await axiosSecure.delete(`/deleteAfterApprove/${biodataId}`);
+                queryClient.invalidateQueries(["premium-requests"]); // refresh data
+                Swal.fire({
+                    icon: "success",
+                    title: "Approved",
+                    text: "User has been upgraded to Premium!",
+                    timer: 2000,
+                    showConfirmButton: false,
+                });
+            } catch (err) {
+                console.error("Error deleting request:", err);
+                Swal.fire({
+                    icon: "error",
+                    title: "Error",
+                    text: "Failed to delete approval request",
+                });
+            }
         },
         onError: (err) => {
             Swal.fire({

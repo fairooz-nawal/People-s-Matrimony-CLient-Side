@@ -16,7 +16,7 @@ const AdminDashboardCount = () => {
         }
     });
 
-    const { totalFemales,totalMales,totalUsers}=stats
+    const { totalFemales,totalMales,totalUsers,totalPremium}=stats
 // const {} = stats;
 if (isLoading) {
     return (
@@ -30,7 +30,7 @@ if (isLoading) {
 const genderData = [
     { name: "Male", value: totalMales || 0 },
     { name: "Female", value: totalFemales || 0 },
-    { name: "Premium", value: stats.premiumCount || 0 },
+    { name: "Premium", value: totalPremium || 0 },
 ];
 
 // Prepare data for Revenue Bar Chart
@@ -107,7 +107,7 @@ return (
                 <p className="text-gray-600">Female Biodata</p>
             </div>
             <div className="bg-white rounded-xl shadow p-4 text-center">
-                <p className="text-xl font-bold">{stats.premiumCount || 0}</p>
+                <p className="text-xl font-bold">{totalPremium || 0}</p>
                 <p className="text-gray-600">Premium Biodata</p>
             </div>
         </div>
