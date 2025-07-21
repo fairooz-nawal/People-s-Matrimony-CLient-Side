@@ -3,10 +3,11 @@ import axios from "axios";
 import React from "react";
 import Swal from "sweetalert2";
 import useAxiosSecure from "../../Component/Hooks/useAxiosSecure";
+import Loading from "../Loading";
 
 const ViewBiodata = ({ email }) => {
   const axiosSecure = useAxiosSecure();
-  console.log(email);
+  // console.log(email);
   const { data: biodata, isPending, isError } = useQuery({
     queryKey: ["biodataDetails", email],
     queryFn: async () => {
@@ -17,7 +18,7 @@ const ViewBiodata = ({ email }) => {
   })
   console.log(biodata);
 
-  isPending && <div className='text-center text-2xl font-bold'>Loading...</div>
+  isPending && <div className='text-center text-2xl font-bold'><Loading></Loading></div>
   isError && <div className='text-center text-2xl font-bold'>Error: {isError.message}</div>
   if (!biodata || biodata.length === 0) {
     return <div className='text-center text-2xl font-bold'>No Bio Data Found</div>
@@ -25,9 +26,9 @@ const ViewBiodata = ({ email }) => {
 
   const handlePremium = () => {
     const bioDataInfo = {
-      reqName: biodata.name,
-      reqEmail: biodata.contactEmail,
-      reqBioId: biodata._id
+      reqName: biodata?.name,
+      reqEmail: biodata?.contactEmail,
+      reqBioId: biodata?.biodataId
     }
 
     Swal.fire({
@@ -38,7 +39,7 @@ const ViewBiodata = ({ email }) => {
       denyButtonText: `No`
     }).then(async (result) => {
       if (result.isConfirmed) {
-        const req = await axiosSecure.post(`/approvePremium?email=${biodata.contactEmail}`, bioDataInfo)
+        const req = await axiosSecure.post(`/approvePremium?email=${biodata?.contactEmail}`, bioDataInfo)
         if (req.data.insertedId) {
           Swal.fire({
             title: "Success!",

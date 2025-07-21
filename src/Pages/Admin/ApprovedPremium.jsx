@@ -17,7 +17,7 @@ const ApprovedPremium = () => {
 
     // Mutation to approve premium
     const approvePremiumMutation = useMutation({
-        mutationFn: (biodataId) => axiosSecure.patch(`/registereduser/${biodataId}`),
+        mutationFn: (biodataId) => axiosSecure.patch(`/registereduser?biodataId=${biodataId}`),
         onSuccess: () => {
             queryClient.invalidateQueries(["premium-requests"]); // Refresh premium requests
             queryClient.invalidateQueries(["all-users"]); // Refresh all users if needed

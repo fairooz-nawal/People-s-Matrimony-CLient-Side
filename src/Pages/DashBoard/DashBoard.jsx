@@ -11,6 +11,7 @@ import AdminUL from "../Admin/AdminUL";
 import MakeAdmin from "../Admin/MakeAdmin";
 import AdminDashboardCount from "../Admin/AdminDashboardCount";
 import ApprovedPremium from "../Admin/ApprovedPremium";
+import Loading from "../Loading";
 const DashBoard = () => {
     const { role, roleLoading } = useUserRole()
     console.log(role);
@@ -25,6 +26,9 @@ const DashBoard = () => {
             .catch((error) => {
                 console.error("Error signing out:", error);
             });
+    }
+    if(roleLoading){
+        return <Loading></Loading>
     }
     return (
         <div className="flex min-h-screen">
@@ -49,8 +53,6 @@ const DashBoard = () => {
                 <div className="py-4">
                     {!roleLoading && role === "admin" && <AdminUL setCurrentRoute={setCurrentRoute} handleSignOut={handleSignOut}></AdminUL>}
                     {!roleLoading && role === "user" && <CustomerUL setCurrentRoute={setCurrentRoute} handleSignOut={handleSignOut}></CustomerUL>}
-
-
                 </div>
             </div>
 
