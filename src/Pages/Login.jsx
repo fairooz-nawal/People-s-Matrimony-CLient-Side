@@ -52,8 +52,14 @@ const Login = () => {
                     last_log_in: new Date().toISOString()
                 }
                  
+                 const userInfo2 = {
+                    name: user?.displayName,
+                    contactEmail: user?.email,
+                }
                 const res = await axiosInstance.post('/registereduser', userInfo);
+                const Res2 = await axiosInstance.post('/alluser', userInfo2);
                 console.log("user updated info",res.data);
+                if (res && Res2) {
                     Swal.fire({
                         title: "Login Done Successfully",
                         icon: "success",
@@ -63,6 +69,7 @@ const Login = () => {
                     });
 
                 }
+            }
             })
             .catch((error) => {
                 const errorMessage = error.message;

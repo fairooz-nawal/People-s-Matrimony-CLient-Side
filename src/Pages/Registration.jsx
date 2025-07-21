@@ -25,10 +25,17 @@ const Registration = () => {
                     last_log_in: new Date().toISOString()
                 }
 
-                const userRes = await axiosInstance.post('/registereduser', userInfo);
-                console.log(userRes.data)
+                const userInfo2 = {
+                    name: data.name,
+                    contactEmail: data.email,
+                }
 
-                if (user) {
+                const userRes = await axiosInstance.post('/registereduser', userInfo);
+                const userRes2 = await axiosInstance.post('/alluser', userInfo2);
+                console.log("Registration table",userRes.data)
+                console.log("User table",userRes2.data)
+               
+                if (user && userRes && userRes2) {
                     Swal.fire({
                         title: "Registration Done Successfully",
                         icon: "success",
@@ -48,7 +55,6 @@ const Registration = () => {
     return (
         <div className='bg-[#fce7e4a9] w-full py-[150px] md:px-0 lg:px-[100px] '>
             <h1 className='text-4xl lg:text-7xl font-bold text-center text-gray-700 cursive mb-5'>Registration Here and Start Your Journey</h1>
-
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full mx-auto">
                 <div className="flex items-center justify-center w-full  mx-auto">
                     <div style={{ backgroundImage: `url(${bg2})` }} className="md:w-[600px] lg:w-[600px] lg:h-[700px] mx-auto rounded-full p-2 md:p-5 lg:p-5">

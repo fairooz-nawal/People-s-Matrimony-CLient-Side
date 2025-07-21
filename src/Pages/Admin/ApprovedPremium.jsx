@@ -11,15 +11,16 @@ const ApprovedPremium = () => {
         queryKey: ["premium-requests"],
         queryFn: async () => {
             const res = await axiosSecure.get("/approvePremium");
-            return res.data; 
+            return res.data;
         }
     });
 
     // Mutation to approve premium
     const approvePremiumMutation = useMutation({
-        mutationFn: (biodataId) => axiosSecure.patch(`/admin/make-premium/${biodataId}`),
+        mutationFn: (biodataId) => axiosSecure.patch(`/registereduser/${biodataId}`),
         onSuccess: () => {
-            queryClient.invalidateQueries(["premium-requests"]); // refetch data
+            queryClient.invalidateQueries(["premium-requests"]); // Refresh premium requests
+            queryClient.invalidateQueries(["all-users"]); // Refresh all users if needed
             Swal.fire({
                 icon: "success",
                 title: "Approved",
@@ -80,7 +81,7 @@ const ApprovedPremium = () => {
                                         <td className="border px-4 py-2">{user.reqBioId}</td>
                                         <td className="border px-4 py-2">
                                             <button
-                                                onClick={() => handleMakePremium(user.biodataId)}
+                                                onClick={() => handleMakePremium(user.reqBioId)}
                                                 className="px-3 py-1 bg-yellow-500 hover:bg-yellow-600 text-white rounded"
                                             >
                                                 Make Premium
