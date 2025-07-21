@@ -7,9 +7,10 @@ import UserContactTable from "./UserContactTable";
 import ViewFavouriteBio from "./ViewFavouriteBio";
 import CustomerUL from "./CustomerUL";
 import useUserRole from "../../Component/Hooks/useUserRole";
-import AdminUL from "./AdminUL";
+import AdminUL from "../Admin/AdminUL";
 import MakeAdmin from "../Admin/MakeAdmin";
-import AdminDashboardCount from "./AdminDashboardCount";
+import AdminDashboardCount from "../Admin/AdminDashboardCount";
+import ApprovedPremium from "../Admin/ApprovedPremium";
 const DashBoard = () => {
     const { role, roleLoading } = useUserRole()
     console.log(role);
@@ -72,6 +73,9 @@ const DashBoard = () => {
                     )}
                     {!roleLoading && role === "admin" && currentRoute === "makeAdmin" && (
                         <MakeAdmin></MakeAdmin>
+                    )}
+                    {!roleLoading && role === "admin" && currentRoute === "makePremium" && (
+                        <ApprovedPremium></ApprovedPremium>
                     )}
 
                     {/* users routes */}

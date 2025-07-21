@@ -21,10 +21,10 @@ const AdminUL = ({setCurrentRoute,handleSignOut}) => {
             </li>
             <li>
                 <button
-                    onClick={() => setCurrentRoute("view-biodata")}
+                    onClick={() => setCurrentRoute("makePremium")}
                     className="block w-full text-left p-2 rounded hover:bg-gray-100 hover:text-red-400 text-white font-medium"
                 >
-                    View Biodata
+                    Approved Premium
                 </button>
             </li>
             <li>
@@ -33,14 +33,6 @@ const AdminUL = ({setCurrentRoute,handleSignOut}) => {
                     className="block w-full text-left p-2 rounded hover:bg-gray-100 hover:text-red-400 text-white font-medium"
                 >
                     My Contact Requests
-                </button>
-            </li>
-            <li>
-                <button
-                    onClick={() => setCurrentRoute("favourites")}
-                    className="block w-full text-left p-2 rounded hover:bg-gray-100 hover:text-red-400 text-white font-medium"
-                >
-                    Favourites Biodata
                 </button>
             </li>
             <li>
