@@ -6,10 +6,16 @@ import ViewBioData from "./ViewBioData";
 import UserContactTable from "./UserContactTable";
 import ViewFavouriteBio from "./ViewFavouriteBio";
 import CustomerUL from "./CustomerUL";
+import useUserRole from "../../Component/Hooks/useUserRole";
+import AdminUL from "./AdminUL";
+import MakeAdmin from "../Admin/MakeAdmin";
+import AdminDashboardCount from "./AdminDashboardCount";
 const DashBoard = () => {
-    const { users, signOutUser,currentRoute, setCurrentRoute } = useContext(ContextAPI);
+    const { role, roleLoading } = useUserRole()
+    console.log(role);
+    const { users, signOutUser, currentRoute, setCurrentRoute } = useContext(ContextAPI);
     const [isOpen, setIsOpen] = useState(true);
-   
+
     const handleSignOut = () => {
         signOutUser()
             .then(() => {
@@ -40,7 +46,10 @@ const DashBoard = () => {
 
                 {/* Sidebar Links */}
                 <div className="py-4">
-                   <CustomerUL setCurrentRoute={setCurrentRoute} handleSignOut={handleSignOut}></CustomerUL>
+                    {!roleLoading && role === "admin" && <AdminUL setCurrentRoute={setCurrentRoute} handleSignOut={handleSignOut}></AdminUL>}
+                    {!roleLoading && role === "user" && <CustomerUL setCurrentRoute={setCurrentRoute} handleSignOut={handleSignOut}></CustomerUL>}
+
+
                 </div>
             </div>
 
@@ -56,18 +65,28 @@ const DashBoard = () => {
                 </div>
 
                 <div className="p-4 flex items-center justify-center " style={{ backgroundImage: `url(${bg})`, backgroundSize: 'cover', minHeight: '100vh' }}>
-                        {currentRoute === "edit-biodata" && (
-                            <EditBio></EditBio>
-                        )}
-                        {currentRoute === "view-biodata" && (
-                            <ViewBioData email={users?.email}></ViewBioData>
-                        )}
-                        {currentRoute === "contact-requests" && (
-                            <UserContactTable></UserContactTable>
-                        )}
-                        {currentRoute === "favourites" && (
-                            <ViewFavouriteBio></ViewFavouriteBio>
-                        )}
+                    {/* admin routes */}
+                    
+                    {!roleLoading && role === "admin" && currentRoute === "AdminDashBoard" && (
+                       <AdminDashboardCount></AdminDashboardCount>
+                    )}
+                    {!roleLoading && role === "admin" && currentRoute === "makeAdmin" && (
+                        <MakeAdmin></MakeAdmin>
+                    )}
+
+                    {/* users routes */}
+                    {!roleLoading && role === "user" &&  currentRoute === "edit-biodata" && (
+                        <EditBio></EditBio>
+                    )}
+                    {!roleLoading && role === "user" && currentRoute === "view-biodata" && (
+                        <ViewBioData email={users?.email}></ViewBioData>
+                    )}
+                    {!roleLoading && role === "user" && currentRoute === "contact-requests" && (
+                        <UserContactTable></UserContactTable>
+                    )}
+                    {!roleLoading && role === "user" && currentRoute === "favourites" && (
+                        <ViewFavouriteBio></ViewFavouriteBio>
+                    )}
                 </div>
             </div>
         </div>

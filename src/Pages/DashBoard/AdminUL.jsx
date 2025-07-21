@@ -1,14 +1,22 @@
 import React from 'react';
 
-const AdminUL = () => {
+const AdminUL = ({setCurrentRoute,handleSignOut}) => {
     return (
         <ul className="space-y-3 px-4">
             <li>
                 <button
-                    onClick={() => setCurrentRoute("edit-biodata")}
+                    onClick={() => setCurrentRoute("AdminDashBoard")}
                     className="block w-full text-left p-2 rounded hover:bg-gray-100 hover:text-red-400 text-white font-medium"
                 >
-                    Edit Biodata
+                   Admin DashBoard
+                </button>
+            </li>
+            <li>
+                <button
+                    onClick={() => setCurrentRoute("makeAdmin")}
+                    className="block w-full text-left p-2 rounded hover:bg-gray-100 hover:text-red-400 text-white font-medium"
+                >
+                    Manage Users
                 </button>
             </li>
             <li>

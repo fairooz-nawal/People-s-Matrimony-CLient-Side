@@ -1,22 +1,31 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import useAxiosSecure from "../../Component/Hooks/useAxiosSecure";
 import Swal from "sweetalert2";
 
 const MakeAdmin = () => {
     const [searchTerm, setSearchTerm] = useState("");
+    const [showSearchResults, setShowSearchResults] = useState(false);
     const axiosSecure = useAxiosSecure();
     const queryClient = useQueryClient();
 
-    // Fetch users by name
-    const { data: users = [], refetch, isFetching } = useQuery({
+    // Fetch all users on page load
+    const { data: allUsers = [], isLoading: allUsersLoading } = useQuery({
+        queryKey: ["all-users"],
+        queryFn: async () => {
+            const res = await axiosSecure.get('/registereduser');
+            return res.data;
+        }
+    });
+
+    // Fetch users by search
+    const { data: searchUsers = [], refetch: refetchSearch, isFetching: isSearching } = useQuery({
         queryKey: ["searched-users", searchTerm],
         queryFn: async () => {
-            if (!searchTerm) return [];
             const res = await axiosSecure.get(`/adminsearch?email=${searchTerm}`);
             return res.data;
         },
-        enabled: false,
+        enabled: false, // Don't fetch until explicitly called
     });
 
     // Toggle Admin Mutation
@@ -24,7 +33,11 @@ const MakeAdmin = () => {
         mutationFn: ({ userId, action }) =>
             axiosSecure.patch(`/admin/toggle-admin/${userId}`, { action }),
         onSuccess: (_, variables) => {
-            queryClient.invalidateQueries(["searched-users", searchTerm]);
+            // Refresh user data
+            queryClient.invalidateQueries(["all-users"]);
+            if (showSearchResults) {
+                refetchSearch();
+            }
             Swal.fire({
                 icon: "success",
                 title: "Success",
@@ -34,8 +47,6 @@ const MakeAdmin = () => {
                         : "User has been removed from Admin!",
                 timer: 2000,
                 showConfirmButton: false,
-            }).then(() => {
-                refetch();
             });
         },
         onError: (err) => {
@@ -51,15 +62,17 @@ const MakeAdmin = () => {
     const makePremiumMutation = useMutation({
         mutationFn: (userId) => axiosSecure.patch(`/admin/make-premium/${userId}`),
         onSuccess: () => {
-            queryClient.invalidateQueries(["searched-users", searchTerm]);
+            // Refresh user data
+            queryClient.invalidateQueries(["all-users"]);
+            if (showSearchResults) {
+                refetchSearch();
+            }
             Swal.fire({
                 icon: "success",
                 title: "Success",
                 text: "User has been upgraded to Premium!",
                 timer: 2000,
                 showConfirmButton: false,
-            }).then(() => {
-                refetch();
             });
         },
         onError: (err) => {
@@ -71,13 +84,14 @@ const MakeAdmin = () => {
         },
     });
 
-    const handleSearch = (e) => {
+    const handleSearch = async (e) => {
         e.preventDefault();
-        if (!searchTerm) {
-            Swal.fire("Warning", "Please enter a username to search!", "warning");
+        if (!searchTerm.trim()) {
+            setShowSearchResults(false); // Show all users if search is empty
             return;
         }
-        refetch();
+        setShowSearchResults(true);
+        await refetchSearch(); // Fetch searched users
     };
 
     const toggleAdmin = (userId, currentRole) => {
@@ -109,17 +123,19 @@ const MakeAdmin = () => {
         });
     };
 
-    return (
-        <div className="min-h-screen flex justify-center items-center">
+    // Decide which user list to show
+    const usersToDisplay = showSearchResults ? searchUsers : allUsers;
 
-            <div className="p-6 max-w-5xl mx-auto border rounded shadow">
+    return (
+        <div className="min-h-screen flex justify-center">
+            <div className="p-6 max-w-5xl mx-auto border rounded shadow bg-white">
                 <h1 className="text-2xl font-bold mb-4">Manage Users</h1>
 
                 {/* Search Form */}
                 <form onSubmit={handleSearch} className="flex gap-2 mb-6">
                     <input
                         type="text"
-                        placeholder="Search by username"
+                        placeholder="Search by email"
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
                         className="border px-3 py-2 rounded w-full"
@@ -128,14 +144,14 @@ const MakeAdmin = () => {
                         type="submit"
                         className="bg-blue-600 text-white px-4 py-2 rounded"
                     >
-                        Search
+                        {isSearching ? "Searching..." : "Search"}
                     </button>
                 </form>
 
                 {/* Users Table */}
-                {isFetching ? (
-                    <p>Loading...</p>
-                ) : users.length > 0 ? (
+                {allUsersLoading ? (
+                    <p>Loading users...</p>
+                ) : usersToDisplay?.length > 0 ? (
                     <table className="w-full border-collapse border">
                         <thead className="bg-gray-200">
                             <tr>
@@ -147,7 +163,7 @@ const MakeAdmin = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            {users.map((user) => (
+                            {usersToDisplay.map((user) => (
                                 <tr key={user._id}>
                                     <td className="border px-3 py-2">{user.name || "N/A"}</td>
                                     <td className="border px-3 py-2">{user.email}</td>
@@ -168,10 +184,13 @@ const MakeAdmin = () => {
                                     <td className="border px-3 py-2 flex gap-2">
                                         <button
                                             onClick={() => toggleAdmin(user._id, user.role)}
-                                            className={`px-3 py-1 rounded text-white ${user.role === "admin" ? "bg-red-500" : "bg-green-600"
-                                                }`}
+                                            className={`px-3 py-1 rounded text-white ${
+                                                user.role === "admin" ? "bg-red-500" : "bg-green-600"
+                                            }`}
                                         >
-                                            {user.role === "admin" ? "Remove Admin" : "Make Admin"}
+                                            {user.role === "admin"
+                                                ? "Remove Admin"
+                                                : "Make Admin"}
                                         </button>
                                         {!user.premium && (
                                             <button
@@ -191,7 +210,6 @@ const MakeAdmin = () => {
                 )}
             </div>
         </div>
-
     );
 };
 
