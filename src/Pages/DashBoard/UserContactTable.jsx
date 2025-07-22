@@ -3,6 +3,7 @@ import UserContactRow from './UserContactRow';
 import { useQuery } from '@tanstack/react-query';
 import { ContextAPI } from '../../Component/ContextAPI/AuthProvider';
 import useAxiosSecure from '../../Component/Hooks/useAxiosSecure';
+import Loading from '../Loading';
 
 
 const UserContactTable = () => {
@@ -17,12 +18,11 @@ const UserContactTable = () => {
     })
 
     if (isPending) {
-        return <div className='text-center text-2xl font-bold'>Loading...</div>
+        return <div className='text-center text-2xl font-bold'><Loading></Loading></div>
     }
     if (isError) {
         return <div className='text-center text-2xl font-bold'>Error: {isError.message}</div>
     }
-    console.log(data);
 
     const currentUserEmail = data.filter(current => current.email === users.email);
     return (
@@ -49,7 +49,6 @@ const UserContactTable = () => {
                             </table>
                         </>
                 }
-
             </div>
         </div>
     );

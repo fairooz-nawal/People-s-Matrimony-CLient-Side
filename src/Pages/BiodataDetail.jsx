@@ -154,11 +154,7 @@ console.log(similarBiodata)
                         </button>
 
                         {!isPremium && (
-                           users?.email == requiredEmail?.email ?  <button
-                                disabled = {true}
-                                className="px-4 py-2 bg-gray-600 text-white rounded">
-                                Request Contact Info
-                            </button> :  <button
+                          <button
                                 onClick={handleRequestContact} 
                                 className="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700">
                                 Request Contact Info
@@ -194,7 +190,7 @@ console.log(similarBiodata)
                                 <p>Occupation: {biodata.occupation}</p>
                                 <button
                                     onClick={() =>
-                                        handleReload(biodata.biodataId)}
+                                        handleReload(biodata._id)}
                                     className="mt-2 px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600"
                                 >
                                     View Details
