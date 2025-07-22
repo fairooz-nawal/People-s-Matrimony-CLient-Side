@@ -29,7 +29,7 @@ const AdminUL = ({setCurrentRoute,handleSignOut}) => {
             </li>
             <li>
                 <button
-                    onClick={() => setCurrentRoute("contact-requests")}
+                    onClick={() => setCurrentRoute("approveContactRequest")}
                     className="block w-full text-left p-2 rounded hover:bg-gray-100 hover:text-red-400 text-white font-medium"
                 >
                     My Contact Requests

@@ -4,6 +4,7 @@ import React from "react";
 import Swal from "sweetalert2";
 import useAxiosSecure from "../../Component/Hooks/useAxiosSecure";
 import Loading from "../Loading";
+import { useSpring } from "framer-motion";
 
 const ViewBiodata = ({ email }) => {
   const axiosSecure = useAxiosSecure();
@@ -17,7 +18,7 @@ const ViewBiodata = ({ email }) => {
     }
   })
   console.log(biodata);
-
+  
   isPending && <div className='text-center text-2xl font-bold'><Loading></Loading></div>
   isError && <div className='text-center text-2xl font-bold'>Error: {isError.message}</div>
   if (!biodata || biodata.length === 0) {

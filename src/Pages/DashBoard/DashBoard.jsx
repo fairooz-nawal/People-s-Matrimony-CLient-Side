@@ -12,6 +12,7 @@ import MakeAdmin from "../Admin/MakeAdmin";
 import AdminDashboardCount from "../Admin/AdminDashboardCount";
 import ApprovedPremium from "../Admin/ApprovedPremium";
 import Loading from "../Loading";
+import ApprovedContactRequest from "../Admin/ApprovedContactRequest";
 const DashBoard = () => {
     const { role, roleLoading } = useUserRole()
     console.log(role);
@@ -53,6 +54,7 @@ const DashBoard = () => {
                 <div className="py-4">
                     {!roleLoading && role === "admin" && <AdminUL setCurrentRoute={setCurrentRoute} handleSignOut={handleSignOut}></AdminUL>}
                     {!roleLoading && role === "user" && <CustomerUL setCurrentRoute={setCurrentRoute} handleSignOut={handleSignOut}></CustomerUL>}
+                    {!roleLoading && role === "premiumUser" && <CustomerUL setCurrentRoute={setCurrentRoute} handleSignOut={handleSignOut}></CustomerUL>}
                 </div>
             </div>
 
@@ -79,6 +81,9 @@ const DashBoard = () => {
                     {!roleLoading && role === "admin" && currentRoute === "makePremium" && (
                         <ApprovedPremium></ApprovedPremium>
                     )}
+                    {!roleLoading && role === "admin" && currentRoute === "approveContactRequest" && (
+                        <ApprovedContactRequest></ApprovedContactRequest>
+                    )}
 
                     {/* users routes */}
                     {!roleLoading && role === "user" &&  currentRoute === "edit-biodata" && (
@@ -91,6 +96,20 @@ const DashBoard = () => {
                         <UserContactTable></UserContactTable>
                     )}
                     {!roleLoading && role === "user" && currentRoute === "favourites" && (
+                        <ViewFavouriteBio></ViewFavouriteBio>
+                    )}
+
+                    {/* users routes */}
+                    {!roleLoading && role === "premiumUser" &&  currentRoute === "edit-biodata" && (
+                        <EditBio></EditBio>
+                    )}
+                    {!roleLoading && role === "premiumUser" && currentRoute === "view-biodata" && (
+                        <ViewBioData email={users?.email}></ViewBioData>
+                    )}
+                    {!roleLoading && role === "premiumUser" && currentRoute === "contact-requests" && (
+                        <UserContactTable></UserContactTable>
+                    )}
+                    {!roleLoading && role === "premiumUser" && currentRoute === "favourites" && (
                         <ViewFavouriteBio></ViewFavouriteBio>
                     )}
                 </div>

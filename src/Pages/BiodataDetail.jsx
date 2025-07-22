@@ -1,16 +1,26 @@
-import React, { useContext } from "react";
+import React, { useContext} from "react";
 import { useNavigate, useParams } from "react-router";
-import axios from "axios";
 import { ContextAPI } from "../Component/ContextAPI/AuthProvider";
 import Swal from 'sweetalert2'
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../Component/Hooks/useAxiosSecure";
+import { set } from "react-hook-form";
+import Loading from "./Loading";
 
 const BiodataDetails = () => {
     const navigate = useNavigate();
     const axiosSecure = useAxiosSecure();
     const { users } = useContext(ContextAPI);
     const { id: _id } = useParams();
+
+     // Fetch all contact requests
+    const { data: CurrentcontactRequests = [], isLoading } = useQuery({
+        queryKey: ["contact-requests"],
+        queryFn: async () => {
+            const res = await axiosSecure.get("/all-contact-requests");
+            return res.data;
+        }
+    });
 
     const { data: Details, isPending } = useQuery({
         queryKey: ['biodataDetails'],
@@ -30,23 +40,24 @@ const BiodataDetails = () => {
     });
 
     if (isPending) {
-        return <div className='text-center text-2xl font-bold'>Loading...</div>
+        return <Loading></Loading>
     }
 
     if (!Details) {
         return <div className='text-center text-2xl font-bold'>No Biodata Found</div>
     }
 
-    const { age, contactEmail, dob, expectedPartnerAge, expectedPartnerHeight, expectedPartnerWeight, fatherName, gender, height, mobileNumber, motherName, name, occupation, permanentDivision, presentDivision, profileImage, race, weight, isPremium
+    const { biodataId, age, contactEmail, dob, expectedPartnerAge, expectedPartnerHeight, expectedPartnerWeight, fatherName, gender, height, mobileNumber, motherName, name, occupation, permanentDivision, presentDivision, profileImage, race, weight, isPremium
     } = Details;
     // const navigate = useNavigate();
 
+   const requiredEmail =  CurrentcontactRequests.find(contactRequest => contactRequest.email === users?.email)
+   console.log("This is the required email",requiredEmail?.email);
     const handleAddToFavourites = async () => {
         const favouriteBio = {
-            biodataId: Details._id,
+            biodataId: Details.biodataId,
             userEmail: users?.email,
         }
-        console.log(favouriteBio);
         try {
             console.log("clicked");
             const res = await axiosSecure.post('/addFavourite', favouriteBio);
@@ -78,16 +89,15 @@ const BiodataDetails = () => {
         )
         .slice(0, 3); // Limit to 3
 
-
     const handleRequestContact = () => {
-        navigate(`/checkout/${_id}`);
+        navigate(`/checkout/${biodataId}`);
     };
 
     const handleReload = (id) => {
         navigate(`/biodataDetail/${id}`);
         window.location.reload();
     };
-
+console.log(similarBiodata)
     return (
         <div className="min-h-screen md:max-w-7xl lg:max-w-[1600px] mx-auto bg-white p-6 md:my-[150px]">
             <h1 className='text-4xl lg:text-7xl primary font-bold text-center text-white cursive md:w-9/12 mx-auto p-5'>Details of the Person</h1>
@@ -144,12 +154,16 @@ const BiodataDetails = () => {
                         </button>
 
                         {!isPremium && (
-                            <button
-                                  onClick={handleRequestContact}
-                                className="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700"
-                            >
+                           users?.email == requiredEmail?.email ?  <button
+                                disabled = {true}
+                                className="px-4 py-2 bg-gray-600 text-white rounded">
+                                Request Contact Info
+                            </button> :  <button
+                                onClick={handleRequestContact} 
+                                className="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700">
                                 Request Contact Info
                             </button>
+                           
                         )}
                     </div>
                 </div>
@@ -180,7 +194,7 @@ const BiodataDetails = () => {
                                 <p>Occupation: {biodata.occupation}</p>
                                 <button
                                     onClick={() =>
-                                        handleReload(biodata._id)}
+                                        handleReload(biodata.biodataId)}
                                     className="mt-2 px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600"
                                 >
                                     View Details

@@ -12,7 +12,6 @@ const Login = () => {
     const axiosInstance = useAxios();
     const navigate = useNavigate();
     const location = useLocation();
-    console.log(location);
     const onSubmit = (data) => {
         signInUser(data.email, data.password)
             .then((res) => {
@@ -56,9 +55,11 @@ const Login = () => {
                     name: user?.displayName,
                     contactEmail: user?.email,
                 }
+                console.log("This is the login info,",userInfo2)
                 const res = await axiosInstance.post('/registereduser', userInfo);
                 const Res2 = await axiosInstance.post('/alluser', userInfo2);
                 console.log("user updated info",res.data);
+                console.log("user updated info",Res2.data);
                 if (res && Res2) {
                     Swal.fire({
                         title: "Login Done Successfully",
@@ -67,7 +68,6 @@ const Login = () => {
                     }).then(() => {
                         navigate(location?.state || '/');
                     });
-
                 }
             }
             })

@@ -68,21 +68,29 @@ const PaymentForm = ({ id }) => {
         else {
             console.log(result);
             if (result.paymentIntent.status === "succeeded") {
-                Swal.fire({
-                    title: "Success!",
-                    text: "Your Payment is done Successfully",
-                    icon: "success",
-                });
-
                 // Save payment details to backend
                const res = await axiosSecure.post('/save-payment', {
                     biodataId: id,
+                    name: users?.displayName,
                     email: currentEmail,
                     amount: amount,
                     paymentIntentId: result.paymentIntent.id
                 });
 
-                console.log(res.data);
+                if(res.data.result.insertedId){
+                    Swal.fire({
+                        title: "Payment is saved to database",
+                        icon: "success",
+                        draggable: true
+                    })
+                }
+                else{
+                    Swal.fire({
+                        title: "You have already made a payment.",
+                        icon: "error",
+                        draggable: true
+                    })
+                }
 
             }
         }
