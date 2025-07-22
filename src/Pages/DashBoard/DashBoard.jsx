@@ -13,6 +13,7 @@ import AdminDashboardCount from "../Admin/AdminDashboardCount";
 import ApprovedPremium from "../Admin/ApprovedPremium";
 import Loading from "../Loading";
 import ApprovedContactRequest from "../Admin/ApprovedContactRequest";
+import SuccessStories from "./SuccessStories";
 const DashBoard = () => {
     const { role, roleLoading } = useUserRole()
     console.log(role);
@@ -99,6 +100,10 @@ const DashBoard = () => {
                         <ViewFavouriteBio></ViewFavouriteBio>
                     )}
 
+                    {!roleLoading && role === "user" && currentRoute === "SuccessStories" && (
+                        <SuccessStories></SuccessStories>
+                    )}
+
                     {/* users routes */}
                     {!roleLoading && role === "premiumUser" &&  currentRoute === "edit-biodata" && (
                         <EditBio></EditBio>
@@ -111,6 +116,9 @@ const DashBoard = () => {
                     )}
                     {!roleLoading && role === "premiumUser" && currentRoute === "favourites" && (
                         <ViewFavouriteBio></ViewFavouriteBio>
+                    )}
+                    {!roleLoading && role === "premiumUser" && currentRoute === "SuccessStories" && (
+                        <SuccessStories></SuccessStories>
                     )}
                 </div>
             </div>
