@@ -4,9 +4,12 @@ import SingleBiodata from './SingleBiodata';
 import Filter from './Filter';
 import bg from "../assets/seeAllBioData.jpg"
 import useAxiosSecure from '../Component/Hooks/useAxiosSecure';
+import { useContext } from 'react';
+import { ContextAPI } from '../Component/ContextAPI/AuthProvider';
 
 const BioDataContainer = () => {
     const axiosSecure = useAxiosSecure();
+    const {filter} = useContext(ContextAPI);
     const { data: allBioData, isPending, error } = useQuery({
         queryKey: ['allBioData'],
         queryFn: async () => {
@@ -27,10 +30,14 @@ const BioDataContainer = () => {
                 <p className="text-center text-lg font-bold secondary">All Biodata</p>
                 <h1 className='text-5xl font-semibold text-center cursive mb-5 text-black'>Our Users Biodata</h1>
             </div>
-            <Filter></Filter>
+            <div className="w-full">
+                 <Filter></Filter>
+            </div>
+           
 
             <div className="w-11/12 mx-auto py-[100px] grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 {
+                    filter.length > 0 ? filter.map((single , index) => <SingleBiodata key={index} index={index+1} single={single}></SingleBiodata>) :
                     allBioData.map((single , index) => <SingleBiodata key={index} index={index+1} single={single}></SingleBiodata>)
                 }
             </div>

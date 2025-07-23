@@ -1,6 +1,9 @@
 import { createUserWithEmailAndPassword, GoogleAuthProvider, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile } from 'firebase/auth';
 import React, { createContext, useEffect, useState } from 'react';
 import auth from '../Firebase/Firebase.config';
+import useAxiosSecure from '../Hooks/useAxiosSecure';
+import { useQuery } from '@tanstack/react-query';
+import { async } from '@firebase/util';
 
 export const ContextAPI = createContext('');
 const AuthProvider = ({ children }) => {
@@ -9,9 +12,26 @@ const AuthProvider = ({ children }) => {
     const [users, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
     const [currentRoute, setCurrentRoute] = useState("edit-biodata");
+    const [filter, setfilter] = useState([]);
+    //drop down for sorting by age in main home page start
     const handleMainDropdown = (value) => {
         setSelected(value);
     }
+    // Function to sort users by age based on the homepage of customer
+    const sortUsersByAge = (users, selected) => {
+        if (selected === 'asc') {
+            // Sort by age ascending
+            return [...users].sort((a, b) => a.age - b.age);
+        } else if (selected === 'desc') {
+            // Sort by age descending
+            return [...users].sort((a, b) => b.age - a.age);
+        } else {
+            // No sorting, return as is
+            return users;
+        }
+    };
+
+    // firebase authentication start
 
     const createUser = (email, password) => {
         setLoading(true);
@@ -32,19 +52,6 @@ const AuthProvider = ({ children }) => {
         setLoading(false);
         return signOut(auth);
     }
-    // Function to sort users by age based on the homepage of customer
-    const sortUsersByAge = (users, selected) => {
-        if (selected === 'asc') {
-            // Sort by age ascending
-            return [...users].sort((a, b) => a.age - b.age);
-        } else if (selected === 'desc') {
-            // Sort by age descending
-            return [...users].sort((a, b) => b.age - a.age);
-        } else {
-            // No sorting, return as is
-            return users;
-        }
-    };
 
     useEffect(() => {
         const Unsubscribe = onAuthStateChanged(auth, (currentUser) => {
@@ -61,10 +68,15 @@ const AuthProvider = ({ children }) => {
         return () => {
             Unsubscribe();
         };
-    }, [])
+    }, []);
+    // firebase authentication end
+
+
+
     const userinfo = {
-        handleMainDropdown, selected, sortUsersByAge, createUser, 
-        signInUser, signUpWithGoogle, signOutUser, loading, users, setLoading, currentRoute, setCurrentRoute
+        handleMainDropdown, selected, sortUsersByAge, createUser,
+        signInUser, signUpWithGoogle, signOutUser, loading, users,
+        setLoading, currentRoute, setCurrentRoute,filter, setfilter
     }
 
 

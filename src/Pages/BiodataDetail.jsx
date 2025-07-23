@@ -17,7 +17,7 @@ const BiodataDetails = () => {
     const { data: CurrentcontactRequests = [], isLoading } = useQuery({
         queryKey: ["contact-requests"],
         queryFn: async () => {
-            const res = await axiosSecure.get("/all-contact-requests");
+            const res = await axiosSecure.get("/registereduser");
             return res.data;
         }
     });
@@ -47,12 +47,12 @@ const BiodataDetails = () => {
         return <div className='text-center text-2xl font-bold'>No Biodata Found</div>
     }
 
-    const { biodataId, age, contactEmail, dob, expectedPartnerAge, expectedPartnerHeight, expectedPartnerWeight, fatherName, gender, height, mobileNumber, motherName, name, occupation, permanentDivision, presentDivision, profileImage, race, weight, isPremium
+    const { biodataId, age, contactEmail, dob, expectedPartnerAge, expectedPartnerHeight, expectedPartnerWeight, fatherName, gender, height, mobileNumber, motherName, name, occupation, permanentDivision, presentDivision, profileImage, race, weight,isPremium,
     } = Details;
     // const navigate = useNavigate();
 
-   const requiredEmail =  CurrentcontactRequests.find(contactRequest => contactRequest.email === users?.email)
-   console.log("This is the required email",requiredEmail?.email);
+   const requiredEmail =  CurrentcontactRequests.find(contactRequest => contactRequest.email === users?.email).role
+   console.log("This is the required email",requiredEmail);
     const handleAddToFavourites = async () => {
         const favouriteBio = {
             biodataId: Details.biodataId,
@@ -97,7 +97,6 @@ const BiodataDetails = () => {
         navigate(`/biodataDetail/${id}`);
         window.location.reload();
     };
-console.log(similarBiodata)
     return (
         <div className="min-h-screen md:max-w-7xl lg:max-w-[1600px] mx-auto bg-white p-6 md:my-[150px]">
             <h1 className='text-4xl lg:text-7xl primary font-bold text-center text-white cursive md:w-9/12 mx-auto p-5'>Details of the Person</h1>
@@ -132,8 +131,8 @@ console.log(similarBiodata)
 
                     {/* Contact Info */}
                     <div className="mt-4">
-                        {isPremium ? (
-                            <div className="text-green-600">
+                        {requiredEmail == "premiumUser" ? (
+                            <div className="text-gray-500">
                                 <p>Email: {contactEmail}</p>
                                 <p>Phone: {mobileNumber}</p>
                             </div>
@@ -153,7 +152,7 @@ console.log(similarBiodata)
                             Add to Favourites
                         </button>
 
-                        {!isPremium && (
+                        {requiredEmail!= "premiumUser" && (
                           <button
                                 onClick={handleRequestContact} 
                                 className="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700">
