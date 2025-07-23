@@ -1,39 +1,35 @@
 import React from 'react';
-
-const AdminUL = ({setCurrentRoute,handleSignOut}) => {
+import { Link } from 'react-router';
+const AdminUL = ({handleSignOut}) => {
     return (
         <ul className="space-y-3 px-4">
             <li>
-                <button
-                    onClick={() => setCurrentRoute("AdminDashBoard")}
+                <Link to="/dashboard/admin" 
                     className="block w-full text-left p-2 rounded hover:bg-gray-100 hover:text-red-400 text-white font-medium"
                 >
                    Admin DashBoard
-                </button>
+                </Link>
             </li>
             <li>
-                <button
-                    onClick={() => setCurrentRoute("makeAdmin")}
+                <Link to="/dashboard/admin/makeAdmin"
                     className="block w-full text-left p-2 rounded hover:bg-gray-100 hover:text-red-400 text-white font-medium"
                 >
                     Manage Users
-                </button>
+                </Link>
             </li>
             <li>
-                <button
-                    onClick={() => setCurrentRoute("makePremium")}
+                <Link to="/dashboard/admin/makePremium"
                     className="block w-full text-left p-2 rounded hover:bg-gray-100 hover:text-red-400 text-white font-medium"
                 >
                     Approved Premium
-                </button>
+                </Link>
             </li>
             <li>
-                <button
-                    onClick={() => setCurrentRoute("approveContactRequest")}
+                <Link to="/dashboard/admin/approveContactRequest"
                     className="block w-full text-left p-2 rounded hover:bg-gray-100 hover:text-red-400 text-white font-medium"
                 >
                     My Contact Requests
-                </button>
+                </Link>
             </li>
             <li>
                 <button

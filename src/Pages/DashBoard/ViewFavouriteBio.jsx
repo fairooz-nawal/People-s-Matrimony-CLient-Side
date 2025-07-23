@@ -4,6 +4,7 @@ import React, { useContext } from 'react';
 import FavBioRow from './FavBioRow';
 import { ContextAPI } from '../../Component/ContextAPI/AuthProvider';
 import useAxiosSecure from '../../Component/Hooks/useAxiosSecure';
+import Loading from '../Loading';
 
 const ViewFavouriteBio = () => {
     const axiosSecure = useAxiosSecure();
@@ -24,8 +25,8 @@ const ViewFavouriteBio = () => {
         }
     })
 
-    allPending || isPending ? <div className='text-center text-2xl font-bold'>Loading...</div> : ""
-    allError || isError ? <div className='text-center text-2xl font-bold'>Error: An error Occured</div> : ""
+    if(allPending || isPending){<Loading></Loading>}
+    if(allError || isError) <div className='text-center text-2xl font-bold'>Error: An error Occured</div> 
 
     if (!alluser || alluser.length === 0) {
         return <div className='text-center text-2xl font-bold'>No User Found</div>
@@ -34,9 +35,9 @@ const ViewFavouriteBio = () => {
         return <div className='text-center text-2xl font-bold'>No Favourite Biodata Found</div>
     }
 
-    const favBio = alluser.filter(singleuser => data.some(fav => fav.biodataId === singleuser._id));
+    const favBio = alluser.filter(singleuser => data.some(fav => fav.biodataId === singleuser.biodataId));
     const currentUserEmail = data.filter(current => current.userEmail === users.email);
-    console.log(currentUserEmail);
+    console.log("This is favourite row",currentUserEmail);
     return (
         <div className="relative overflow-x-auto shadow-lg rounded-lg">
             <div className="p-4 bg-gradient-to-r from-amber-500 to-pink-500 rounded-t-lg">

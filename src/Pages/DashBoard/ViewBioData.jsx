@@ -1,14 +1,13 @@
 import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
-import React from "react";
+
 import Swal from "sweetalert2";
 import useAxiosSecure from "../../Component/Hooks/useAxiosSecure";
 import Loading from "../Loading";
-import { useSpring } from "framer-motion";
+import { useParams } from "react-router";
 
-const ViewBiodata = ({ email }) => {
+const ViewBiodata = () => {
   const axiosSecure = useAxiosSecure();
-  // console.log(email);
+  const {email} = useParams();
   const { data: biodata, isPending, isError } = useQuery({
     queryKey: ["biodataDetails", email],
     queryFn: async () => {
@@ -62,7 +61,7 @@ const ViewBiodata = ({ email }) => {
 
   console.log(biodata);
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-amber-500 to-pink-500 p-6">
+    <div className=" w-full flex items-center justify-center bg-gradient-to-r from-amber-500 to-pink-500 p-6">
       <div className="max-w-3xl w-full bg-white bg-opacity-80 backdrop-blur-md rounded-lg shadow-2xl p-6 md:p-10">
         {/* Header */}
         <div className="text-center mb-6">

@@ -61,8 +61,8 @@ const ApprovedContactRequest = () => {
 
     console.log(contactRequests)
     return (
-        <div className="min-h-screen bg-gradient-to-r from-amber-500 to-pink-500 p-6">
-            <div className="bg-white rounded-2xl shadow-lg p-8 w-full md:max-w-6xl mx-auto">
+        <div className="min-h-screen w-full bg-gradient-to-r from-amber-500 to-pink-500 p-6 ">
+            <div className="bg-white rounded-2xl shadow-lg p-8 mx-auto overflow-x-auto">
                 <h1 className="text-4xl font-extrabold text-center text-pink-600 mb-6">
                     Approved Contact Requests
                 </h1>
@@ -73,8 +73,8 @@ const ApprovedContactRequest = () => {
                     <p className="text-center text-lg text-gray-500">No contact requests found.</p>
                 ) : (
                     <div className="">
-                        <table className="w-full border border-gray-300 rounded-lg shadow">
-                            <thead className="bg-gradient-to-r from-pink-500 to-amber-500 text-white">
+                        <table className="w-full border border-gray-300 rounded-lg shadow bg-white">
+                            <thead className="bg-gradient-to-r from-amber-500 to-pink-500 p-6 text-white">
                                 <tr>
                                     <th className="border px-4 py-3 text-left">Name</th>
                                     <th className="border px-4 py-3 text-left">Email</th>

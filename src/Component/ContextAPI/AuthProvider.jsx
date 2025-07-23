@@ -3,7 +3,8 @@ import React, { createContext, useEffect, useState } from 'react';
 import auth from '../Firebase/Firebase.config';
 import useAxiosSecure from '../Hooks/useAxiosSecure';
 import { useQuery } from '@tanstack/react-query';
-import { async } from '@firebase/util';
+import Loading from '../../Pages/Loading';
+
 
 export const ContextAPI = createContext('');
 const AuthProvider = ({ children }) => {
@@ -13,6 +14,19 @@ const AuthProvider = ({ children }) => {
     const [loading, setLoading] = useState(true);
     const [currentRoute, setCurrentRoute] = useState("edit-biodata");
     const [filter, setfilter] = useState([]);
+    const AxiosSecure = useAxiosSecure();
+
+    //get logged in user role
+
+    const { data: allregisteredUser, isPending, isError } = useQuery({
+        queryKey: ["user-role"], // cache by email
+        queryFn: async () => {
+            const res = await AxiosSecure.get("/registereduser");
+            return res.data
+        }
+    })
+
+
     //drop down for sorting by age in main home page start
     const handleMainDropdown = (value) => {
         setSelected(value);
@@ -71,12 +85,21 @@ const AuthProvider = ({ children }) => {
     }, []);
     // firebase authentication end
 
-
-
+    isPending && <Loading></Loading>
+    isError && <div>Error: {isError.message}</div>
+    let currentUser = [];
+    if (allregisteredUser && users) {
+        console.log(users?.email, allregisteredUser)
+        currentUser = allregisteredUser.filter(all => {  return all.email === users?.email })
+        // console.log("This is Current User",currentUser)
+    }
+    
+    const role = currentUser[0]?.role;
+    // console.log("This is role",role)
     const userinfo = {
         handleMainDropdown, selected, sortUsersByAge, createUser,
         signInUser, signUpWithGoogle, signOutUser, loading, users,
-        setLoading, currentRoute, setCurrentRoute,filter, setfilter
+        setLoading, currentRoute, setCurrentRoute, filter, setfilter,role
     }
 
 

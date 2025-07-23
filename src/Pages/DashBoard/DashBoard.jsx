@@ -8,12 +8,10 @@ import ViewFavouriteBio from "./ViewFavouriteBio";
 import CustomerUL from "./CustomerUL";
 import useUserRole from "../../Component/Hooks/useUserRole";
 import AdminUL from "../Admin/AdminUL";
-import MakeAdmin from "../Admin/MakeAdmin";
-import AdminDashboardCount from "../Admin/AdminDashboardCount";
-import ApprovedPremium from "../Admin/ApprovedPremium";
 import Loading from "../Loading";
-import ApprovedContactRequest from "../Admin/ApprovedContactRequest";
 import SuccessStories from "./SuccessStories";
+import { Outlet } from "react-router";
+
 const DashBoard = () => {
     const { role, roleLoading } = useUserRole()
     console.log(role);
@@ -29,100 +27,77 @@ const DashBoard = () => {
                 console.error("Error signing out:", error);
             });
     }
-    if(roleLoading){
+    if (roleLoading) {
         return <Loading></Loading>
     }
     return (
-        <div className="flex min-h-screen">
+        <div className="flex flex-col md:flex-row min-h-screen max-w-full md:max-w-7xl lg:max-w-[1600px] mx-auto">
             {/* Sidebar */}
             <div
-                className={`fixed md:static z-50 top-0 left-0 h-full w-64 bg-red-400 border-r border-gray-200 shadow-lg transform transition-transform duration-300 ease-in-out ${isOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"
-                    }`}
+                className={`fixed md:static z-50 top-0 left-0 w-64 h-full bg-red-400 border-r border-gray-200 shadow-lg transform transition-transform duration-300 ease-in-out
+      ${isOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"}`}
             >
                 <div className="flex justify-between items-center p-4 border-b">
-                    <h5 className="text-2xl font-semibold text-white">
-                        Dashboard Menu
-                    </h5>
+                    <h5 className="text-2xl font-semibold text-white">Dashboard Menu</h5>
+                    {/* Close button ONLY visible on mobile */}
                     <button
                         onClick={() => setIsOpen(false)}
-                        className=" text-white  hover:text-gray-800"
+                        className="text-white hover:text-gray-200 md:hidden"
                     >
                         ✕
                     </button>
                 </div>
 
                 {/* Sidebar Links */}
-                <div className="py-4">
-                    {!roleLoading && role === "admin" && <AdminUL setCurrentRoute={setCurrentRoute} handleSignOut={handleSignOut}></AdminUL>}
-                    {!roleLoading && role === "user" && <CustomerUL setCurrentRoute={setCurrentRoute} handleSignOut={handleSignOut}></CustomerUL>}
-                    {!roleLoading && role === "premiumUser" && <CustomerUL setCurrentRoute={setCurrentRoute} handleSignOut={handleSignOut}></CustomerUL>}
+                <div className="py-4 ">
+                    {!roleLoading && role === "admin" && (
+                        <AdminUL handleSignOut={handleSignOut} />
+                    )}
+                    {!roleLoading && role === "user" && (
+                        <CustomerUL handleSignOut={handleSignOut} />
+                    )}
+                    {!roleLoading && role === "premiumUser" && (
+                        <CustomerUL
+                            setCurrentRoute={setCurrentRoute}
+                            handleSignOut={handleSignOut}
+                        />
+                    )}
                 </div>
             </div>
 
             {/* Main Content */}
-            <div className="flex-1 ml-0 md:ml-64">
-                <div className="bg-gradient-to-r from-amber-500 to-pink-500 pt-[150px] pb-3 pl-[10px] text-white">
+            <div className="w-full">
+                {/* Header */}
+                <div className="bg-gradient-to-r from-amber-500 to-pink-500  flex justify-between items-center w-full pt-[150px] pb-5">
+                    <h1 className="text-white font-bold text-lg">Dashboard</h1>
+                    {/* Menu button ONLY visible on mobile */}
                     <button
                         onClick={() => setIsOpen(true)}
-                        className="text-red-400 bg-white p-[10px] rounded-2xl font-bold  hover:border-3 hover:text-white hover:bg-red-500 text-2xl"
+                        className="text-red-400 bg-white px-4 py-2 rounded-2xl font-bold hover:bg-red-500 hover:text-white transition-colors duration-300 md:hidden"
                     >
-                         Click To View Dashboard Menu
+                        ☰ Menu
                     </button>
                 </div>
 
-                <div className="p-4 flex items-center justify-center " style={{ backgroundImage: `url(${bg})`, backgroundSize: 'cover', minHeight: '100vh' }}>
-                    {/* admin routes */}
-                    
-                    {!roleLoading && role === "admin" && currentRoute === "AdminDashBoard" && (
-                       <AdminDashboardCount></AdminDashboardCount>
-                    )}
-                    {!roleLoading && role === "admin" && currentRoute === "makeAdmin" && (
-                        <MakeAdmin></MakeAdmin>
-                    )}
-                    {!roleLoading && role === "admin" && currentRoute === "makePremium" && (
-                        <ApprovedPremium></ApprovedPremium>
-                    )}
-                    {!roleLoading && role === "admin" && currentRoute === "approveContactRequest" && (
-                        <ApprovedContactRequest></ApprovedContactRequest>
-                    )}
+                {/* Main Body */}
+                <div
+                    className="flex md:justify-end lg:justify-center overflow-x-auto py-4 p-6 lg:pr-[10opx]"
+                    style={{
+                        backgroundImage: `url(${bg})`,
+                        backgroundSize: "cover",
+                        height: "100vh", // adjust height
+                    }}
+                >
+                    <div className="md:w-[500px] lg:w-[800px] ">
+                        <Outlet />
+                    </div>
 
-                    {/* users routes */}
-                    {!roleLoading && role === "user" &&  currentRoute === "edit-biodata" && (
-                        <EditBio></EditBio>
-                    )}
-                    {!roleLoading && role === "user" && currentRoute === "view-biodata" && (
-                        <ViewBioData email={users?.email}></ViewBioData>
-                    )}
-                    {!roleLoading && role === "user" && currentRoute === "contact-requests" && (
-                        <UserContactTable></UserContactTable>
-                    )}
-                    {!roleLoading && role === "user" && currentRoute === "favourites" && (
-                        <ViewFavouriteBio></ViewFavouriteBio>
-                    )}
-
-                    {!roleLoading && role === "user" && currentRoute === "SuccessStories" && (
-                        <SuccessStories></SuccessStories>
-                    )}
-
-                    {/* users routes */}
-                    {!roleLoading && role === "premiumUser" &&  currentRoute === "edit-biodata" && (
-                        <EditBio></EditBio>
-                    )}
-                    {!roleLoading && role === "premiumUser" && currentRoute === "view-biodata" && (
-                        <ViewBioData email={users?.email}></ViewBioData>
-                    )}
-                    {!roleLoading && role === "premiumUser" && currentRoute === "contact-requests" && (
-                        <UserContactTable></UserContactTable>
-                    )}
-                    {!roleLoading && role === "premiumUser" && currentRoute === "favourites" && (
-                        <ViewFavouriteBio></ViewFavouriteBio>
-                    )}
-                    {!roleLoading && role === "premiumUser" && currentRoute === "SuccessStories" && (
-                        <SuccessStories></SuccessStories>
-                    )}
                 </div>
             </div>
         </div>
+
+
+
     );
 };
 

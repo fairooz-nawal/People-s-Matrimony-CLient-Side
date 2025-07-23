@@ -1,47 +1,49 @@
-import React from 'react';
-
-const CustomerUL = ({setCurrentRoute,handleSignOut}) => {
+import React, { useContext } from 'react';
+import { Link } from 'react-router';
+import { ContextAPI } from '../../Component/ContextAPI/AuthProvider';
+const CustomerUL = ({ handleSignOut }) => {
+    const { users} = useContext(ContextAPI);
     return (
         <ul className="space-y-3 px-4">
             <li>
-                <button
-                    onClick={() => setCurrentRoute("edit-biodata")}
+                <Link
+                    to="/dashboard/user"
                     className="block w-full text-left p-2 rounded hover:bg-gray-100 hover:text-red-400 text-white font-medium"
                 >
                     Edit Biodata
-                </button>
+                </Link>
             </li>
             <li>
-                <button
-                    onClick={() => setCurrentRoute("view-biodata")}
+                <Link
+                    to={`/dashboard/user/view-biodata/${users?.email}`}
                     className="block w-full text-left p-2 rounded hover:bg-gray-100 hover:text-red-400 text-white font-medium"
                 >
                     View Biodata
-                </button>
+                </Link>
             </li>
             <li>
-                <button
-                    onClick={() => setCurrentRoute("contact-requests")}
+                <Link
+                    to="/dashboard/user/contact-requests"
                     className="block w-full text-left p-2 rounded hover:bg-gray-100 hover:text-red-400 text-white font-medium"
                 >
                     My Contact Requests
-                </button>
+                </Link>
             </li>
             <li>
-                <button
-                    onClick={() => setCurrentRoute("favourites")}
+                <Link
+                    to="/dashboard/user/favourites"
                     className="block w-full text-left p-2 rounded hover:bg-gray-100 hover:text-red-400 text-white font-medium"
                 >
                     Favourites Biodata
-                </button>
+                </Link>
             </li>
             <li>
-                <button
-                    onClick={() => setCurrentRoute("SuccessStories")}
+                <Link
+                    to="/dashboard/user/SuccessStories"
                     className="block w-full text-left p-2 rounded hover:bg-gray-100 hover:text-red-400 text-white font-medium"
                 >
                     Sucess Stories
-                </button>
+                </Link>
             </li>
             <li>
                 <button

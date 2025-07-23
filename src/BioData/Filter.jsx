@@ -36,14 +36,14 @@ const Filter = () => {
         {/* Age From */}
         <div className="flex flex-col space-y-1">
           <p className="text-gray-700 font-medium">Age From</p>
-          <input type="text" id="first_name" className="bg-gray-50 border border-gray-300 rounded-2xl"  {...register("ageFrom")} placeholder="Age from" required />
+          <input type="text" id="first_name" className="bg-gray-50 border border-gray-300 rounded-2xl"  {...register("ageFrom")} placeholder="Age from" />
 
         </div>
 
         {/* Age To */}
         <div className="flex flex-col space-y-1">
           <p className="text-gray-700 font-medium">Age To</p>
-          <input type="text" id="first_name" className="bg-gray-50 border border-gray-300 rounded-2xl"  {...register("ageTo")} placeholder="Age to" required />
+          <input type="text" id="first_name" className="bg-gray-50 border border-gray-300 rounded-2xl"  {...register("ageTo")} placeholder="Age to" />
         </div>
 
         {/* Biodata Type */}

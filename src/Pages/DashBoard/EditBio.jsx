@@ -103,12 +103,12 @@ const EditBio = () => {
 
         <form
             onSubmit={handleSubmit(onSubmit)}
-            className="md:w-[700px] lg:w-[900px] bg-gradient-to-r from-amber-500 to-pink-500 text-white bg-white rounded-lg shadow-lg p-8 space-y-4"
+            className="md:w-11/12 lg:w-11/12 mx-auto bg-gradient-to-r from-amber-500 to-pink-500 text-white bg-white rounded-lg shadow-lg p-8 space-y-4"
         >
             <h2 className="text-3xl font-bold text-center text-white mb-6">
                 Create Biodata
             </h2>
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4">
                 <div className="">
                     {/* Biodata Type */}
                     <div>

@@ -63,9 +63,9 @@ const ApprovedPremium = () => {
     };
     console.log(requests)
     return (
-        <div className="min-h-screen bg-gradient-to-r from-amber-500 to-pink-500 p-6">
+        <div className="min-h-screen w-full bg-gradient-to-r from-amber-500 to-pink-500 p-6">
             <div className="bg-white rounded-xl shadow p-6 max-w-5xl mx-auto">
-                <h1 className="text-3xl font-bold mb-4 text-center text-pink-600">Premium Approval Requests</h1>
+                <h1 className="text-4xl font-extrabold text-center text-pink-600 mb-6">Premium Approval Requests</h1>
 
                 {isLoading ? (
                     <p className="text-center text-lg font-semibold">Loading requests...</p>
@@ -74,7 +74,7 @@ const ApprovedPremium = () => {
                 ) : (
                     <div className="overflow-x-auto">
                         <table className="w-full border border-gray-300 rounded-lg">
-                            <thead className="bg-gray-100">
+                            <thead className="bg-gradient-to-r from-amber-500 to-pink-500 p-6 text-white">
                                 <tr>
                                     <th className="border px-4 py-2">Name</th>
                                     <th className="border px-4 py-2">Email</th>

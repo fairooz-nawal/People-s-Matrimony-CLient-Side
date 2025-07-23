@@ -43,7 +43,7 @@ const axiosSecure = useAxiosSecure();
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-amber-500 to-pink-500">
+    <div className="p-6 flex items-center justify-center bg-gradient-to-r from-amber-500 to-pink-500">
       <div className="bg-white rounded-xl shadow-lg p-8 w-full max-w-md">
         <h2 className="text-2xl font-bold text-center text-gray-800 mb-6">
           Share Your Success Story
@@ -109,11 +109,27 @@ const axiosSecure = useAxiosSecure();
               Your Review
             </label>
             <textarea
-              {...register("review", { required: true })}
+              {...register("successStory", { required: true })}
               placeholder="Write your success story here..."
               rows="4"
               className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-pink-500"
             ></textarea>
+            {errors.review && (
+              <p className="text-red-500 text-sm mt-1">
+                This field is required
+              </p>
+            )}
+          </div>
+          <div>
+            <label className="block text-gray-700 font-medium mb-1">
+              Rating out of 5
+            </label>
+            <input
+              {...register("rating", { required: true })}
+              placeholder="Enter you rating out of 5"
+              rows="4"
+              className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-pink-500"
+            ></input>
             {errors.review && (
               <p className="text-red-500 text-sm mt-1">
                 This field is required

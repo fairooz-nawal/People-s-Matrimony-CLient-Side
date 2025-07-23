@@ -5,15 +5,15 @@ import { ContextAPI } from "../ContextAPI/AuthProvider";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false); // For mobile menu toggle
-  const { users } = useContext(ContextAPI);
-
+  const { users, role } = useContext(ContextAPI);
+  console.log("this is navbar", role)
   const links = (
     <>
       <li>
         <NavLink
           to="/"
           className={({ isActive }) =>
-            `text-black lg:text-white p-3 hover:border-2 hover:rounded-2xl hover:border-white   ${isActive ? "border-2 rounded-2xl lg:border-white " : ""
+            `text-black lg:text-white p-3 hover:border-2 hover:rounded-2xl hover:border-white   ${isActive ? "border-2 rounded-2xl md:border-white " : ""
             }`
           }
         >
@@ -24,7 +24,7 @@ const Navbar = () => {
         <NavLink
           to="/biodatas"
           className={({ isActive }) =>
-            `text-black lg:text-white p-3 hover:border-2 hover:rounded-2xl hover:border-white  ${isActive ? "border-2 rounded-2xl lg:border-white " : ""
+            `text-black lg:text-white p-3 hover:border-2 hover:rounded-2xl hover:border-white  ${isActive ? "border-2 rounded-2xl md:border-white " : ""
             }`
           }
         >
@@ -38,7 +38,7 @@ const Navbar = () => {
         <NavLink
           to="/about-us"
           className={({ isActive }) =>
-            `text-black lg:text-white p-3 hover:border-2 hover:rounded-2xl hover:border-white  ${isActive ? "border-2 rounded-2xl lg:border-white " : ""
+            `text-black lg:text-white p-3 hover:border-2 hover:rounded-2xl hover:border-white  ${isActive ? "border-2 rounded-2xl md:border-white " : ""
             }`
           }
         >
@@ -49,7 +49,7 @@ const Navbar = () => {
         <NavLink
           to="/contact-us"
           className={({ isActive }) =>
-            `text-black lg:text-white p-3 hover:border-2 hover:rounded-2xl hover:border-white  ${isActive ? "border-2 rounded-2xl lg:border-white " : ""
+            `text-black lg:text-white p-3 hover:border-2 hover:rounded-2xl hover:border-white  ${isActive ? "border-2 rounded-2xl md:border-white " : ""
             }`
           }
         >
@@ -77,15 +77,24 @@ const Navbar = () => {
 
           {/* Login & Registration */}
           <div className="flex md:order-2 space-x-3">
-            {
-              users ? <>
+            {users ? (
+              role === "admin" ? (
                 <Link
-                  to="/dashboard"
+                  to="/dashboard/admin"
                   className="p-3 border-2 rounded-2xl shadow-2xl font-bold primary text-white hover:bg-red-500"
                 >
-                  Dashboard
+                  Admin Dashboard
                 </Link>
-              </> : <>
+              ) : (
+                <Link
+                  to="/dashboard/user"
+                  className="p-3 border-2 rounded-2xl shadow-2xl font-bold primary text-white hover:bg-red-500"
+                >
+                  User Dashboard
+                </Link>
+              )
+            ) : (
+              <>
                 <Link
                   to="/auth/login"
                   className="p-3 border-2 rounded-2xl shadow-2xl font-bold primary text-white hover:bg-red-500"
@@ -99,13 +108,13 @@ const Navbar = () => {
                   Registration
                 </Link>
               </>
-            }
+            )}
 
             {/* Hamburger Button */}
             <button
               onClick={() => setIsOpen(!isOpen)} // Toggle menu
               type="button"
-              className="bg-white inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg lg:hidden hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-200"
+              className="bg-white inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-200"
               aria-expanded={isOpen}
             >
               <span className="sr-only">Open main menu</span>
@@ -138,10 +147,10 @@ const Navbar = () => {
           {/* Nav Links */}
           <div
             className={`${isOpen ? "block bg-white" : "hidden"
-              } w-full lg:flex lg:w-auto lg:order-1`}
+              } w-full md:flex md:w-auto md:order-1`}
             id="navbar-sticky"
           >
-            <ul className="flex flex-col p-4 lg:p-0 mt-5 space-y-4 font-medium border border-gray-100 rounded-lg md:space-y-2 lg:space-x-8 lg:flex-row  md:mt-0 md:border-0 ">
+            <ul className="bg-white md:bg-transparent flex flex-col mt-5 space-y-4 font-medium border border-gray-100 rounded-lg  md:space-x-8 md:flex-row  md:mt-0 md:border-0 py-5">
               {links}
             </ul>
           </div>

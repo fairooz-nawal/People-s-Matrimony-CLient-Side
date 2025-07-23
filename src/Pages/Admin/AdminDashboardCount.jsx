@@ -39,7 +39,7 @@ const revenueData = [
 ];
 
 return (
-    <div className="min-h-screen bg-gradient-to-r from-amber-500 to-pink-500 p-6">
+    <div className="min-h-screen w-full bg-gradient-to-r from-amber-500 to-pink-500 p-6">
         <h1 className="text-4xl text-center font-bold text-white mb-8">Admin Dashboard</h1>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
