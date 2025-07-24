@@ -39,7 +39,7 @@ const BiodataDetails = () => {
         },
     });
 
-    if (isPending) {
+    if (isPending || isLoading) {
         return <Loading></Loading>
     }
 
@@ -51,9 +51,10 @@ const BiodataDetails = () => {
     } = Details;
     // const navigate = useNavigate();
 
+    let requiredrole = "user";
     if (CurrentcontactRequests) {
-        const requiredEmail = CurrentcontactRequests.find(contactRequest => contactRequest.email === users?.email).role
-        console.log("This is the required email", requiredEmail);
+        requiredrole = CurrentcontactRequests.find(contactRequest => contactRequest.email === users?.email).role
+        console.log("This is the required email", requiredrole);
     }
 
     const handleAddToFavourites = async () => {
@@ -137,8 +138,8 @@ const BiodataDetails = () => {
 
                     {/* Contact Info */}
                     <div className="mt-4">
-                        {requiredEmail ? (
-                            requiredEmail == "premiumUser" ? (
+                        {requiredrole ? (
+                            requiredrole == "premiumUser" ? (
                                 <div className="text-gray-500">
                                     <p>Email: {contactEmail}</p>
                                     <p>Phone: {mobileNumber}</p>
@@ -165,7 +166,7 @@ const BiodataDetails = () => {
                             Add to Favourites
                         </button>
 
-                        {requiredEmail != "premiumUser" && (
+                        {requiredrole != "premiumUser" && (
                             <button
                                 onClick={handleRequestContact}
                                 className="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700">
