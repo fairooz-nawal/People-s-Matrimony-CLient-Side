@@ -20,6 +20,7 @@ import UserContactTable from "../Pages/DashBoard/UserContactTable";
 import ViewFavouriteBio from "../Pages/DashBoard/ViewFavouriteBio";
 import SuccessStories from "../Pages/DashBoard/SuccessStories";
 import ErrorPage from "../Pages/ErrorPage";
+import SuccessStory from "../Pages/Admin/SuccessStory";
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -64,6 +65,10 @@ export const router = createBrowserRouter([
               {
                path:"/dashboard/admin/approveContactRequest",
                element:<AdminProtectedRoute><ApprovedContactRequest></ApprovedContactRequest></AdminProtectedRoute>
+              },
+              {
+               path:"/dashboard/admin/successStory",
+               element:<AdminProtectedRoute><SuccessStory></SuccessStory></AdminProtectedRoute>
               },
             ]
         },
