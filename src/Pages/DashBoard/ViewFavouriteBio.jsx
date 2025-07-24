@@ -1,6 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import axios from 'axios';
-import React, { useContext } from 'react';
+import { useContext } from 'react';
 import FavBioRow from './FavBioRow';
 import { ContextAPI } from '../../Component/ContextAPI/AuthProvider';
 import useAxiosSecure from '../../Component/Hooks/useAxiosSecure';
@@ -17,27 +16,15 @@ const ViewFavouriteBio = () => {
         }
     })
 
-    const { data: alluser, isPending: allPending, isError: allError } = useQuery({
-        queryKey: ['allUser'],
-        queryFn: async () => {
-            const res = await axiosSecure.get('/alluser');
-            return res.data
-        }
-    })
 
-    if(allPending || isPending){<Loading></Loading>}
-    if(allError || isError) <div className='text-center text-2xl font-bold'>Error: An error Occured</div> 
-
-    if (!alluser || alluser.length === 0) {
-        return <div className='text-center text-2xl font-bold'>No User Found</div>
-    }
+    if(isPending){<Loading></Loading>}
+    if(isError) <div className='text-center text-2xl font-bold'>Error: An error Occured</div> 
     if (!data || data.length === 0) {
         return <div className='text-center text-2xl font-bold'>No Favourite Biodata Found</div>
     }
+    const currentUserEmail = data.filter(current => current.userEmail === users?.email);
 
-    const favBio = alluser.filter(singleuser => data.some(fav => fav.biodataId === singleuser.biodataId));
-    const currentUserEmail = data.filter(current => current.userEmail === users.email);
-    console.log("This is favourite row",currentUserEmail);
+
     return (
         <div className="relative overflow-x-auto shadow-lg rounded-lg">
             <div className="p-4 bg-gradient-to-r from-amber-500 to-pink-500 rounded-t-lg">
@@ -56,7 +43,7 @@ const ViewFavouriteBio = () => {
                                     <th scope="col" className="px-6 py-3 text-center">Action</th>
                                 </tr>
                             </thead>
-                            {favBio.map((favbio, index) => <FavBioRow key={index} favbio={favbio}></FavBioRow>)}
+                            {currentUserEmail.map((favbio, index) => <FavBioRow key={index} favbio={favbio}></FavBioRow>)}
                         </table>
                     </>
                     : <p className='bg-white p-4 text-2xl font-bold'>No User Found</p>

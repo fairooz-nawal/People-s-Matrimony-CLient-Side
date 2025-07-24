@@ -44,7 +44,7 @@ const UserContactTable = () => {
                                     <th scope="col" className="px-6 py-3 text-center">Action</th>
                                 </tr>
                             </thead>
-                            {data.map((requ, index) => <UserContactRow key={index} requ={requ}></UserContactRow>)}
+                            {currentUserEmail.map((requ, index) => <UserContactRow key={index} requ={requ}></UserContactRow>)}
                         </table>
                     </>
             }

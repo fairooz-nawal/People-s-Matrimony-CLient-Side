@@ -10,13 +10,24 @@ const MakeAdmin = () => {
     const queryClient = useQueryClient();
 
     // Fetch all users on page load
-    const { data: allUsers = [], isLoading: allUsersLoading } = useQuery({
+    const { data: allUser = [], isLoading: allUsersLoading } = useQuery({
         queryKey: ["all-users"],
         queryFn: async () => {
             const res = await axiosSecure.get('/registereduser');
             return res.data;
         }
     });
+
+    // Fetch all pending premium requests
+    const { data: requests = [], isLoading } = useQuery({
+        queryKey: ["premium-requests"],
+        queryFn: async () => {
+            const res = await axiosSecure.get("/approvePremium");
+            return res.data;
+        }
+    });
+
+    const allUsers = [...requests, ...allUser];
 
     // Fetch users by search
     const { data: searchUsers = [], refetch: refetchSearch, isFetching: isSearching } = useQuery({
@@ -58,31 +69,28 @@ const MakeAdmin = () => {
         },
     });
 
-    // Make Premium Mutation
-    const makePremiumMutation = useMutation({
-        mutationFn: (userId) => axiosSecure.patch(`/admin/make-premium/${userId}`),
-        onSuccess: () => {
-            // Refresh user data
-            queryClient.invalidateQueries(["all-users"]);
-            if (showSearchResults) {
-                refetchSearch();
-            }
+    // Mutation to approve premium
+    const approvePremiumMutation = async (biodataId) => {
+        const res = await axiosSecure.patch(`/registereduser?biodataId=${biodataId}`)
+        console.log(res.data)
+        if (res.data) {
             Swal.fire({
                 icon: "success",
-                title: "Success",
+                title: "Approved",
                 text: "User has been upgraded to Premium!",
                 timer: 2000,
                 showConfirmButton: false,
             });
-        },
-        onError: (err) => {
+        }
+        else {
             Swal.fire({
                 icon: "error",
                 title: "Error",
-                text: err.response?.data?.message || "Failed to make user premium",
+                text: "Failed to approve premium",
             });
-        },
-    });
+        }
+
+    }
 
     const handleSearch = async (e) => {
         e.preventDefault();
@@ -118,7 +126,7 @@ const MakeAdmin = () => {
             confirmButtonText: "Yes",
         }).then((result) => {
             if (result.isConfirmed) {
-                makePremiumMutation.mutate(userId);
+                approvePremiumMutation(userId);
             }
         });
     };
@@ -149,7 +157,7 @@ const MakeAdmin = () => {
             </form>
 
             {/* Users Table */}
-            {allUsersLoading ? (
+            {allUsersLoading || isLoading || isSearching ? (
                 <p>Loading users...</p>
             ) : usersToDisplay?.length > 0 ? (
                 <table className="w-full border-collapse border">
@@ -165,14 +173,10 @@ const MakeAdmin = () => {
                     <tbody>
                         {usersToDisplay.map((user) => (
                             <tr key={user._id}>
-                                <td className="border px-3 py-2">{user.name || "N/A"}</td>
-                                <td className="border px-3 py-2">{user.email}</td>
+                                <td className="border px-3 py-2">{user.name || user?.reqName}</td>
+                                <td className="border px-3 py-2">{user?.email || user?.reqEmail}</td>
                                 <td className="border px-3 py-2">
-                                    {user.role === "admin" ? (
-                                        <span className="text-green-600">Admin</span>
-                                    ) : (
-                                        <span className="text-gray-600">User</span>
-                                    )}
+                                    {user.role || "Requests to be Premium User"}
                                 </td>
                                 <td className="border px-3 py-2">
                                     {user.premium ? (
@@ -193,7 +197,7 @@ const MakeAdmin = () => {
                                     </button>
                                     {!user.premium && (
                                         <button
-                                            onClick={() => makePremium(user._id)}
+                                            onClick={() => makePremium(user.reqBioId)}
                                             className="px-3 py-1 rounded bg-yellow-500 text-white"
                                         >
                                             Make Premium

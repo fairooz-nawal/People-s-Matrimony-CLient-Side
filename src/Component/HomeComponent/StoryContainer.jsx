@@ -1,29 +1,18 @@
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import StoryCard from './StoryCard';
 
 
 const StoryContainer = () => {
-    const [sortedStories, setSortedStories] = useState([]);
     const { data: marriages, isPending } = useQuery({
         queryKey: ['successStories'],
         queryFn: async () => {
-            const res = await axios.get('http://localhost:5000/success-stories')
+            const res = await axios.get('https://peoples-matrimony-server.vercel.app/success-stories')
             return res.data;
         }
     });
 
-     useEffect(() => {
-        if (marriages && marriages.length > 0) {
-            const sorted = [...marriages].sort(
-                (a, b) => new Date(a.createdAt) - new Date(b.createdAt)
-            );
-            setSortedStories(sorted);
-        }else{
-            setSortedStories([])
-        }
-    }, [marriages]);
 
     if (isPending) {
         return <div className='text-center text-2xl font-bold'>Loading...</div>
@@ -44,7 +33,7 @@ const StoryContainer = () => {
 
             <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 gap-4 p-5 w-10/12 mx-auto">
                 {
-                    sortedStories.map((singlemarriage, index) => (
+                    marriages.map((singlemarriage, index) => (
                         <StoryCard
                             key={singlemarriage._id}
                             singlemarriage={singlemarriage}

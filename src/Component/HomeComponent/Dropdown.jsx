@@ -1,7 +1,7 @@
 import { useContext, useState } from 'react';
 import { ContextAPI } from '../ContextAPI/AuthProvider';
 
-const Dropdown = () => {
+const Dropdown = ({premiumUsers}) => {
   const {handleMainDropdown} = useContext(ContextAPI);
   const [isOpen, setIsOpen] = useState(false);
 
@@ -42,9 +42,9 @@ const Dropdown = () => {
         id="dropdownHover"
         className={`z-10 ${isOpen ? '' : 'hidden'} bg-white divide-y divide-gray-100 rounded-lg shadow-sm w-44`}
       >
-        <ul className="py-2 text-sm text-gray-700" aria-labelledby="dropdownHoverButton">
-            <li><button onClick={() =>handleMainDropdown("asc")}>Ascending</button></li>
-            <li><button onClick={()=>handleMainDropdown("dsc")}>Descending</button></li>
+        <ul className="py-2 text-sm text-gray-700 space-y-4" aria-labelledby="dropdownHoverButton">
+            <li><button className='bg-white text-black hover:bg-gray-500 hover:text-white py-4' onClick={() =>handleMainDropdown("asc",premiumUsers)}>Ascending</button></li>
+            <li><button className='bg-white text-black hover:bg-gray-500 hover:text-white py-4' onClick={()=>handleMainDropdown("dsc",premiumUsers)}>Descending</button></li>
         </ul>
       </div>
     </>

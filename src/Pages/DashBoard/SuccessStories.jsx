@@ -5,7 +5,7 @@ import Swal from "sweetalert2";
 import useAxiosSecure from "../../Component/Hooks/useAxiosSecure";
 
 const SuccessStories = () => {
-const axiosSecure = useAxiosSecure();
+  const axiosSecure = useAxiosSecure();
   const {
     register,
     handleSubmit,
@@ -13,7 +13,7 @@ const axiosSecure = useAxiosSecure();
     formState: { errors },
   } = useForm();
 
-  
+
   const onSubmit = async (data) => {
     try {
       // Post data to your backend API
@@ -100,6 +100,21 @@ const axiosSecure = useAxiosSecure();
               <p className="text-red-500 text-sm mt-1">
                 This field is required
               </p>
+            )}
+          </div>
+
+          {/* Date of Birth */}
+          <div>
+            <label className="block mb-1 font-medium text-black">
+              Date of Birth <span className="text-red-500">*</span>
+            </label>
+            <input
+              type="date"
+              {...register("createdAt", { required: "Date of birth is required" })}
+              className="w-full border text-gray-700 border-gray-300 rounded-lg p-2"
+            />
+            {errors.dob && (
+              <p className="text-red-500 text-sm">{errors.dob.message}</p>
             )}
           </div>
 

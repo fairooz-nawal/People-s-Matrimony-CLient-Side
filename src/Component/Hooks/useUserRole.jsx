@@ -16,6 +16,7 @@ const useUserRole = () => {
     },
   });
 
+
   return {
     role: roleData?.role || "user", // fallback role
     premium: roleData?.premium || false,

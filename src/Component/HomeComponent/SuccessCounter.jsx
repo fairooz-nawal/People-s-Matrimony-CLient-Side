@@ -9,7 +9,7 @@ const SuccessCounter = () => {
     const { data: stats = {}, isLoading, isError } = useQuery({
         queryKey: ["success-counter"],
         queryFn: async () => {
-            const res = await axios.get("http://localhost:5000/success-counter");
+            const res = await axios.get("https://peoples-matrimony-server.vercel.app/success-counter");
             return res.data;
         },
     });

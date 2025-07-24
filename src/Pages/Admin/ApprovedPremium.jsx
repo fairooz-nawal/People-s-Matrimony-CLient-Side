@@ -16,19 +16,21 @@ const ApprovedPremium = () => {
     });
 
     // Mutation to approve premium
-    const approvePremiumMutation = useMutation({
-        mutationFn: (biodataId) => axiosSecure.patch(`/registereduser?biodataId=${biodataId}`),
-        onSuccess: async(_data, biodataId) => {
+    const approvePremiumMutation = async (biodataId) => {
+        const res = await axiosSecure.patch(`/registereduser?biodataId=${biodataId}`)
+        console.log(res.data)
+        if (res.data) {
             try {
-                await axiosSecure.delete(`/deleteAfterApprove/${biodataId}`);
-                queryClient.invalidateQueries(["premium-requests"]); // refresh data
-                Swal.fire({
-                    icon: "success",
-                    title: "Approved",
-                    text: "User has been upgraded to Premium!",
-                    timer: 2000,
-                    showConfirmButton: false,
-                });
+                const res1 = await axiosSecure.delete(`/deleteAfterApprove/${biodataId}`);
+                if (res1.data) {
+                    Swal.fire({
+                        icon: "success",
+                        title: "Approved",
+                        text: "User has been upgraded to Premium!",
+                        timer: 2000,
+                        showConfirmButton: false,
+                    });
+                }
             } catch (err) {
                 console.error("Error deleting request:", err);
                 Swal.fire({
@@ -37,15 +39,17 @@ const ApprovedPremium = () => {
                     text: "Failed to delete approval request",
                 });
             }
-        },
-        onError: (err) => {
+        }
+        else {
             Swal.fire({
                 icon: "error",
                 title: "Error",
-                text: err.response?.data?.message || "Failed to approve premium",
+                text: "Failed to approve premium",
             });
         }
-    });
+
+    }
+
 
     const handleMakePremium = (biodataId) => {
         Swal.fire({
@@ -57,7 +61,7 @@ const ApprovedPremium = () => {
             cancelButtonText: "Cancel",
         }).then((result) => {
             if (result.isConfirmed) {
-                approvePremiumMutation.mutate(biodataId);
+                approvePremiumMutation(biodataId);
             }
         });
     };

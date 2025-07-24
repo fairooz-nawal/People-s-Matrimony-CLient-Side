@@ -19,6 +19,7 @@ import ViewBiodata from "../Pages/DashBoard/ViewBioData";
 import UserContactTable from "../Pages/DashBoard/UserContactTable";
 import ViewFavouriteBio from "../Pages/DashBoard/ViewFavouriteBio";
 import SuccessStories from "../Pages/DashBoard/SuccessStories";
+import ErrorPage from "../Pages/ErrorPage";
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -109,5 +110,9 @@ export const router = createBrowserRouter([
        
 
     ]
+  },
+  {
+    path:"*",
+    Component:ErrorPage
   }
 ]);

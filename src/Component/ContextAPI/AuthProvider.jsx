@@ -9,7 +9,7 @@ import Loading from '../../Pages/Loading';
 export const ContextAPI = createContext('');
 const AuthProvider = ({ children }) => {
     const provider = new GoogleAuthProvider();
-    const [selected, setSelected] = useState("asc");
+    const [selectedByAge, setSelectedByAge] = useState([]);
     const [users, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
     const [currentRoute, setCurrentRoute] = useState("edit-biodata");
@@ -27,87 +27,81 @@ const AuthProvider = ({ children }) => {
     })
 
 
-    //drop down for sorting by age in main home page start
-    const handleMainDropdown = (value) => {
-        setSelected(value);
+
+    //drop down for sorting by age in main home page startconst 
+    const handleMainDropdown = async (value, premiumUsers) => {
+    try {
+        const res = await AxiosSecure.post(`/sortbyage/${value}`, premiumUsers);
+        console.log(res.data);
+        setSelectedByAge(res.data);
+    } catch (err) {
+        console.error("Error sorting by age:", err);
     }
-    // Function to sort users by age based on the homepage of customer
-    const sortUsersByAge = (users, selected) => {
-        if (selected === 'asc') {
-            // Sort by age ascending
-            return [...users].sort((a, b) => a.age - b.age);
-        } else if (selected === 'desc') {
-            // Sort by age descending
-            return [...users].sort((a, b) => b.age - a.age);
-        } else {
-            // No sorting, return as is
-            return users;
+};
+
+// firebase authentication start
+
+const createUser = (email, password) => {
+    setLoading(true);
+    return createUserWithEmailAndPassword(auth, email, password);
+}
+
+const signInUser = (email, password) => {
+    setLoading(true);
+    return signInWithEmailAndPassword(auth, email, password);
+};
+
+const signUpWithGoogle = () => {
+    setLoading(true);
+    return signInWithPopup(auth, provider);
+}
+
+const signOutUser = () => {
+    setLoading(false);
+    return signOut(auth);
+}
+
+useEffect(() => {
+    const Unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+        if (currentUser) {
+            console.log(currentUser);
+            setUser(currentUser);
+            setLoading(false);
         }
+        else {
+            setUser(null);
+            setLoading(false);
+        }
+    });
+    return () => {
+        Unsubscribe();
     };
+}, []);
+// firebase authentication end
 
-    // firebase authentication start
+isPending && <Loading></Loading>
+isError && <div>Error: {isError.message}</div>
+let currentUser = [];
+if (allregisteredUser && users) {
+    console.log(users?.email, allregisteredUser)
+    currentUser = allregisteredUser.filter(all => { return all.email === users?.email })
+    // console.log("This is Current User",currentUser)
+}
 
-    const createUser = (email, password) => {
-        setLoading(true);
-        return createUserWithEmailAndPassword(auth, email, password);
-    }
-
-    const signInUser = (email, password) => {
-        setLoading(true);
-        return signInWithEmailAndPassword(auth, email, password);
-    };
-
-    const signUpWithGoogle = () => {
-        setLoading(true);
-        return signInWithPopup(auth, provider);
-    }
-
-    const signOutUser = () => {
-        setLoading(false);
-        return signOut(auth);
-    }
-
-    useEffect(() => {
-        const Unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-            if (currentUser) {
-                console.log(currentUser);
-                setUser(currentUser);
-                setLoading(false);
-            }
-            else {
-                setUser(null);
-                setLoading(false);
-            }
-        });
-        return () => {
-            Unsubscribe();
-        };
-    }, []);
-    // firebase authentication end
-
-    isPending && <Loading></Loading>
-    isError && <div>Error: {isError.message}</div>
-    let currentUser = [];
-    if (allregisteredUser && users) {
-        console.log(users?.email, allregisteredUser)
-        currentUser = allregisteredUser.filter(all => {  return all.email === users?.email })
-        // console.log("This is Current User",currentUser)
-    }
-    
-    const role = currentUser[0]?.role;
-    // console.log("This is role",role)
-    const userinfo = {
-        handleMainDropdown, selected, sortUsersByAge, createUser,
-        signInUser, signUpWithGoogle, signOutUser, loading, users,
-        setLoading, currentRoute, setCurrentRoute, filter, setfilter,role
-    }
+const role = currentUser[0]?.role;
+// console.log("This is role",role)
+const userinfo = {
+    handleMainDropdown, selectedByAge, createUser,
+    signInUser, signUpWithGoogle, signOutUser, loading, users,
+    setLoading, currentRoute, setCurrentRoute, filter, setfilter, role
+}
 
 
-    return (
-        <ContextAPI.Provider value={userinfo}>
-            {children}
-        </ContextAPI.Provider>
-    );
+return (
+    <ContextAPI.Provider value={userinfo}>
+        {children}
+    </ContextAPI.Provider>
+);
 };
 
 export default AuthProvider;

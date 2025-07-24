@@ -3,7 +3,7 @@ import React, { useContext } from 'react';
 import { ContextAPI } from '../ContextAPI/AuthProvider';
 
  const axiosSecure = axios.create({
-        baseURL: 'http://localhost:5000'
+        baseURL: 'https://peoples-matrimony-server.vercel.app'
     })
 const useAxiosSecure = () => {
     const {users} = useContext(ContextAPI);

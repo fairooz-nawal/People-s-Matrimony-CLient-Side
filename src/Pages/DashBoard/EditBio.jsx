@@ -4,6 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import { ContextAPI } from "../../Component/ContextAPI/AuthProvider";
 import Swal from "sweetalert2";
 import useAxiosSecure from "../../Component/Hooks/useAxiosSecure";
+import Loading from "../Loading";
 
 const EditBio = () => {
     const axiosSecure = useAxiosSecure();
@@ -32,7 +33,7 @@ const EditBio = () => {
     }, [userData, setValue]);
 
     if (isLoading) {
-        return <div>Loading...</div>;
+        return <Loading></Loading>;
     }
 
     if (isError) {

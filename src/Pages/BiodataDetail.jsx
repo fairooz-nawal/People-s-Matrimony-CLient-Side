@@ -1,4 +1,4 @@
-import React, { useContext} from "react";
+import React, { useContext } from "react";
 import { useNavigate, useParams } from "react-router";
 import { ContextAPI } from "../Component/ContextAPI/AuthProvider";
 import Swal from 'sweetalert2'
@@ -13,7 +13,7 @@ const BiodataDetails = () => {
     const { users } = useContext(ContextAPI);
     const { id: _id } = useParams();
 
-     // Fetch all contact requests
+    // Fetch all contact requests
     const { data: CurrentcontactRequests = [], isLoading } = useQuery({
         queryKey: ["contact-requests"],
         queryFn: async () => {
@@ -47,15 +47,21 @@ const BiodataDetails = () => {
         return <div className='text-center text-2xl font-bold'>No Biodata Found</div>
     }
 
-    const { biodataId, age, contactEmail, dob, expectedPartnerAge, expectedPartnerHeight, expectedPartnerWeight, fatherName, gender, height, mobileNumber, motherName, name, occupation, permanentDivision, presentDivision, profileImage, race, weight,isPremium,
+    const { biodataId, age, contactEmail, dob, expectedPartnerAge, expectedPartnerHeight, expectedPartnerWeight, fatherName, gender, height, mobileNumber, motherName, name, occupation, permanentDivision, presentDivision, profileImage, race, weight, isPremium,
     } = Details;
     // const navigate = useNavigate();
 
-   const requiredEmail =  CurrentcontactRequests.find(contactRequest => contactRequest.email === users?.email).role
-   console.log("This is the required email",requiredEmail);
+    if (CurrentcontactRequests) {
+        const requiredEmail = CurrentcontactRequests.find(contactRequest => contactRequest.email === users?.email).role
+        console.log("This is the required email", requiredEmail);
+    }
+
     const handleAddToFavourites = async () => {
         const favouriteBio = {
             biodataId: Details.biodataId,
+            name: Details?.name,
+            permanentDivision: Details?.permanentDivision,
+            occupation: Details?.occupation,
             userEmail: users?.email,
         }
         try {
@@ -131,16 +137,23 @@ const BiodataDetails = () => {
 
                     {/* Contact Info */}
                     <div className="mt-4">
-                        {requiredEmail == "premiumUser" ? (
-                            <div className="text-gray-500">
-                                <p>Email: {contactEmail}</p>
-                                <p>Phone: {mobileNumber}</p>
-                            </div>
+                        {requiredEmail ? (
+                            requiredEmail == "premiumUser" ? (
+                                <div className="text-gray-500">
+                                    <p>Email: {contactEmail}</p>
+                                    <p>Phone: {mobileNumber}</p>
+                                </div>
+                            ) : (
+                                <p className="text-red-500 font-bold text-xl">
+                                    Contact information is only visible to Premium members.
+                                </p>
+                            )
                         ) : (
                             <p className="text-red-500 font-bold text-xl">
                                 Contact information is only visible to Premium members.
                             </p>
                         )}
+
                     </div>
 
                     {/* Buttons */}
@@ -152,13 +165,13 @@ const BiodataDetails = () => {
                             Add to Favourites
                         </button>
 
-                        {requiredEmail!= "premiumUser" && (
-                          <button
-                                onClick={handleRequestContact} 
+                        {requiredEmail != "premiumUser" && (
+                            <button
+                                onClick={handleRequestContact}
                                 className="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700">
                                 Request Contact Info
                             </button>
-                           
+
                         )}
                     </div>
                 </div>
