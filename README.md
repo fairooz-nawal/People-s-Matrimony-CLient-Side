@@ -1,12 +1,96 @@
-# React + Vite
+# 💍 MatrimonyHub – Find Your Perfect Match ❤️
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Welcome to **MatrimonyHub**, a modern, responsive, and feature-rich matrimony platform built with the **MERN stack** (MongoDB, Express.js, React.js, Node.js). Designed for seamless user experience across devices, this platform connects users with potential life partners in a secure and elegant environment.
 
-Currently, two official plugins are available:
+🌐 **Live Site**: [https://syeda-fairooz-nawal-peoples-matrimony.netlify.app/](https://syeda-fairooz-nawal-peoples-matrimony.netlify.app/)  
+📂 **Client GitHub Repo**: [https://github.com/Programming-Hero-Web-Course4/b11a12-client-side-fairooz-nawal](https://github.com/Programming-Hero-Web-Course4/b11a12-client-side-fairooz-nawal/)  
+📂 **Server GitHub Repo**: [https://github.com/Programming-Hero-Web-Course4/b11a12-server-side-fairooz-nawal](https://github.com/Programming-Hero-Web-Course4/b11a12-server-side-fairooz-nawal)  
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+🛠️ **Admin Credentials**  
+- **Email**: `admin@gmail.com`  
+- **Password**: `Admin@123`
+  
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## ✨ Key Features
+
+## ✅ Responsive Design
+
+Works perfectly on mobile, tablet, and desktop devices.
+
+## ✅ Secure Authentication
+
+Email/password login & Google OAuth.
+
+JWT implemented for route protection.
+
+## ✅ Premium Membership
+
+Premium users can view contact details directly.
+
+Normal users can request contact info via Stripe payment.
+
+## ✅ Biodata Management
+
+Create, edit, and publish biodata with dynamic biodataId.
+
+Filter biodata by age, division, and gender.
+
+Sort biodata ascending/descending by age.
+
+## ✅ Success Stories
+
+Users can submit marriage success stories.
+
+Displayed beautifully on the home page.
+
+## ✅ Admin Dashboard
+
+Manage users, approve premium requests, and handle contact requests.
+
+Interactive pie charts for analytics and revenue tracking.
+
+## ✅ User Dashboard
+
+Edit biodata, manage favorites, track contact requests, and share success stories.
+
+## ✅ Payment System
+
+Stripe integration for secure payments.
+
+## ✅ Data Fetching
+
+TanStack Query for optimized GET requests.
+
+## ✅ Notifications
+
+SweetAlert2 and Toastify for CRUD operations and auth status.
+
+
+---
+
+
+
+## 🚀 Tech Stack
+
+**Frontend**:  
+- React.js, React Router, Tailwind CSS (Flowbite UI), TanStack Query, Axios  
+
+**Backend**:  
+- Node.js, Express.js, MongoDB, Firebase Admin SDK  
+
+**Other Tools**:  
+- JWT Authentication, Stripe for payments, Recharts for analytics, SweetAlert2 for alerts  
+
+---
+
+## ⚙️ Environment Variables
+
+### Client `.env`
+
+## Project Setup
+git clone https://github.com/your-username/matrimonyhub-client.git
+cd matrimonyhub-client
+npm install
+npm run dev
