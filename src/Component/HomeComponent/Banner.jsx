@@ -18,7 +18,7 @@ const slides = [
     lines: ['Find Your Perfect Match', 'Build a Lifetime of Love'],
     textColor: 'text-white',
     textPosition: 'bottom-[20%] lg:bottom-[30%] lg:left-[10%]',
-  },
+  }, 
   {
     img: bg3,
     alt: 'Banner 2',
@@ -41,7 +41,7 @@ const Banner = () => {
   return (
     <div>
       <Carousel
-        autoPlay
+       autoPlay
         infiniteLoop
         showArrows
         interval={2500}

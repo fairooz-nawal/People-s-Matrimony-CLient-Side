@@ -83,11 +83,11 @@ const Login = () => {
             });
     }
     return (
-        <div className='bg-[#fce7e4a9] w-full py-[150px] md:px-0 lg:px-[100px] '>
+        <div className='bg-[#fce7e4a9] w-full py-[150px] md:px-0 lg:px-[100px]'>
             <h1 className='text-4xl lg:text-7xl font-bold text-center text-gray-700 cursive mb-5'>Login Here and Start Your Journey</h1>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full mx-auto">
-                <div className="flex items-center justify-center w-full  mx-auto">
+                <div className="flex items-center justify-center w-11/12  mx-auto">
                     <div style={{ backgroundImage: `url(${bg2})` }} className="md:w-[600px] lg:w-[600px] lg:h-[600px] mx-auto rounded-full p-2 md:p-5 lg:p-5">
                         {/* form */}
                         <div className="loginbg rounded-full p-[60px] w-full h-full">
@@ -115,9 +115,9 @@ const Login = () => {
                                 <button type="submit" className="text-white primary hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center ">Submit</button><br />
 
                                 <p className='text-white cursive text-2xl'>Not Registered Yet? </p><br />
-                                <Link to="/auth/register" className=" bg-blue-700 font-bold text-white p-2 rounded-xl hover:bg-white hover:text-blue-700">Registration</Link>
+                                <Link to="/auth/register" className=" bg-blue-700 font-bold text-white p-2 rounded-xl hover:bg-white hover:text-blue-700 m-4">Registration</Link>
 
-                                <button onClick={handleGoogle} type="button" className="text-white bg-[#4285F4] hover:bg-[#4285F4]/90 focus:ring-4 focus:outline-none focus:ring-[#4285F4]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-[#4285F4]/55 me-2">
+                                <button onClick={handleGoogle} type="button" className="text-white bg-[#4285F4] hover:bg-[#4285F4]/90 focus:ring-4 focus:outline-none focus:ring-[#4285F4]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-[#4285F4]/55 me-2 m-4">
                                     <svg className="w-4 h-4 me-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 19">
                                         <path fillRule="evenodd" d="M8.842 18.083a8.8 8.8 0 0 1-8.65-8.948 8.841 8.841 0 0 1 8.8-8.652h.153a8.464 8.464 0 0 1 5.7 2.257l-2.193 2.038A5.27 5.27 0 0 0 9.09 3.4a5.882 5.882 0 0 0-.2 11.76h.124a5.091 5.091 0 0 0 5.248-4.057L14.3 11H9V8h8.34c.066.543.095 1.09.088 1.636-.086 5.053-3.463 8.449-8.4 8.449l-.186-.002Z" clipRule="evenodd" />
                                     </svg>
@@ -127,7 +127,7 @@ const Login = () => {
                         </div>
                     </div>
                 </div>
-                <div className="flex items-center justify-center">
+                <div className="flex items-center justify-center m-4">
                     <img className="lg:w-[500px] lg:h-[600px] object-center mx-auto rounded-full" src={bg1} alt="" />
                 </div>
             </div>
