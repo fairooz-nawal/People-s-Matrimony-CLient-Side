@@ -22,6 +22,7 @@ import SuccessStories from "../Pages/DashBoard/SuccessStories";
 import ErrorPage from "../Pages/ErrorPage";
 import SuccessStory from "../Pages/Admin/SuccessStory";
 import ContactUs from "../Pages/ContactUs";
+import AboutUs from "../Pages/AboutUs";
 
 export const router = createBrowserRouter([
   {
@@ -31,6 +32,10 @@ export const router = createBrowserRouter([
         {
             index:true,
             Component:Home
+        },
+        {
+          path:"about-us",
+          Component: AboutUs
         },
         {
           path:"contact-us",
