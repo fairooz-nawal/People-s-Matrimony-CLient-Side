@@ -21,6 +21,8 @@ import ViewFavouriteBio from "../Pages/DashBoard/ViewFavouriteBio";
 import SuccessStories from "../Pages/DashBoard/SuccessStories";
 import ErrorPage from "../Pages/ErrorPage";
 import SuccessStory from "../Pages/Admin/SuccessStory";
+import ContactUs from "../Pages/ContactUs";
+
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -29,6 +31,10 @@ export const router = createBrowserRouter([
         {
             index:true,
             Component:Home
+        },
+        {
+          path:"contact-us",
+          Component: ContactUs
         },
         {
             path:"/biodatas",

@@ -13,7 +13,7 @@ const MakeAdmin = () => {
     const { data: allUser = [], isLoading: allUsersLoading } = useQuery({
         queryKey: ["all-users"],
         queryFn: async () => {
-            const res = await axiosSecure.get('/registereduser');
+            const res = await axiosSecure.get('/alluser');
             return res.data;
         }
     });
@@ -132,8 +132,8 @@ const MakeAdmin = () => {
     };
 
     // Decide which user list to show
-    const usersToDisplay = showSearchResults ? searchUsers : allUsers;
-
+    const usersToDisplay = allUsers;
+    console.log(usersToDisplay);
     return (
 
         <div className="p-6 w-full mx-auto border rounded shadow bg-white overflow-x-auto">
@@ -165,6 +165,9 @@ const MakeAdmin = () => {
                         <tr className="bg-gradient-to-r from-amber-500 to-pink-500 p-6 text-white">
                             <th className="border px-3 py-2">Name</th>
                             <th className="border px-3 py-2">Email</th>
+                            <th className="border px-3 py-2">Image</th>
+                            <th className="border px-3 py-2">Phone</th>
+                            <th className="border px-3 py-2">Present Division</th>
                             <th className="border px-3 py-2">Role</th>
                             <th className="border px-3 py-2">Premium</th>
                             <th className="border px-3 py-2">Actions</th>
@@ -174,8 +177,17 @@ const MakeAdmin = () => {
                         {usersToDisplay.map((user) => (
                             <tr key={user._id}>
                                 <td className="border px-3 py-2">{user.name || user?.reqName}</td>
-                                <td className="border px-3 py-2">{user?.email || user?.reqEmail}</td>
+                                <td className="border px-3 py-2">{user?.email || user?.reqEmail || user?.contactEmail}</td>
                                 <td className="border px-3 py-2">
+                                   {user?.profileImage ? <img className="w-[80px] h-[80px]" src={user?.profileImage} alt="" /> : "No Image"} 
+                                </td>
+                                <td className="border px-3 py-2">
+                                   {user?.mobileNumber ? <p>{user?.mobileNumber}</p> : "No Phone Number Found"} 
+                                </td>
+                                <td className="border px-3 py-2">
+                                   {user?.presentDivision ? <p>{user?.presentDivision}</p> : "No division found Found"} 
+                                </td>
+                                <td className={`${user.role ? '' : 'bg-red-500 text-white font-bold'} border px-3 py-2`}>
                                     {user.role || "Requests to be Premium User"}
                                 </td>
                                 <td className="border px-3 py-2">
@@ -185,7 +197,7 @@ const MakeAdmin = () => {
                                         <span className="text-gray-600">Standard</span>
                                     )}
                                 </td>
-                                <td className="border px-3 py-2 flex gap-2">
+                                <td className="border-t-1 px-3 py-2 flex gap-2">
                                     <button
                                         onClick={() => toggleAdmin(user._id, user.role)}
                                         className={`px-3 py-1 rounded text-white ${user.role === "admin" ? "bg-red-500" : "bg-green-600"

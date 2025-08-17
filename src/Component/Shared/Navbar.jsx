@@ -20,7 +20,9 @@ const Navbar = () => {
           Home
         </NavLink>
       </li>
-      <li>
+      {
+        users && <>
+         <li>
         <NavLink
           to="/biodatas"
           className={({ isActive }) =>
@@ -31,9 +33,9 @@ const Navbar = () => {
           Biodatas
         </NavLink>
       </li>
-      <li>
-
-      </li>
+        </>
+      }
+     
       <li>
         <NavLink
           to="/about-us"

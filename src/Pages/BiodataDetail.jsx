@@ -108,7 +108,7 @@ const BiodataDetails = () => {
         <div className="min-h-screen md:max-w-7xl lg:max-w-[1600px] mx-auto bg-white p-6 md:my-[150px]">
             <h1 className='text-4xl lg:text-7xl primary font-bold text-center text-white cursive md:w-9/12 mx-auto p-5'>Details of the Person</h1>
             <div className="grid grid-cols-1 md:grid-cols-2 shadow-md gap-2  md:w-9/12 lg:w-9/12 mx-auto">
-                <div className="border-2 bg-gray-300">
+                <div className=" bg-gray-50">
                     <img
                         src={profileImage}
                         alt={name}
@@ -196,11 +196,14 @@ const BiodataDetails = () => {
                                     alt={biodata.name}
                                     className="w-full h-60 object-cover rounded"
                                 />
-                                <h3 className="text-xl font-bold mt-2">
+                                <div className="h-[100px]">
+                                     <h3 className="text-xl font-bold mt-2">
                                     {biodata.name}
                                 </h3>
                                 <p>Age: {biodata.age}</p>
                                 <p>Occupation: {biodata.occupation}</p>
+                                </div>
+                               
                                 <button
                                     onClick={() =>
                                         handleReload(biodata._id)}
