@@ -13,7 +13,7 @@ const Navbar = () => {
         <NavLink
           to="/"
           className={({ isActive }) =>
-            `text-black lg:text-white p-3 hover:border-2 hover:rounded-2xl hover:border-white   ${isActive ? "border-2 rounded-2xl md:border-white " : ""
+            `text-black md:text-white p-3 hover:border-2 hover:rounded-2xl hover:border-white   ${isActive ? "border-2 rounded-2xl md:border-white " : ""
             }`
           }
         >
@@ -24,7 +24,7 @@ const Navbar = () => {
         <NavLink
           to="/biodatas"
           className={({ isActive }) =>
-            `text-black lg:text-white p-3 hover:border-2 hover:rounded-2xl hover:border-white  ${isActive ? "border-2 rounded-2xl md:border-white " : ""
+            `text-black md:text-white p-3 hover:border-2 hover:rounded-2xl hover:border-white  ${isActive ? "border-2 rounded-2xl md:border-white " : ""
             }`
           }
         >
@@ -38,7 +38,7 @@ const Navbar = () => {
         <NavLink
           to="/about-us"
           className={({ isActive }) =>
-            `text-black lg:text-white p-3 hover:border-2 hover:rounded-2xl hover:border-white  ${isActive ? "border-2 rounded-2xl md:border-white " : ""
+            `text-black md:text-white p-3 hover:border-2 hover:rounded-2xl hover:border-white  ${isActive ? "border-2 rounded-2xl md:border-white " : ""
             }`
           }
         >
@@ -49,7 +49,7 @@ const Navbar = () => {
         <NavLink
           to="/contact-us"
           className={({ isActive }) =>
-            `text-black lg:text-white p-3 hover:border-2 hover:rounded-2xl hover:border-white  ${isActive ? "border-2 rounded-2xl md:border-white " : ""
+            `text-black md:text-white p-3 hover:border-2 hover:rounded-2xl hover:border-white  ${isActive ? "border-2 rounded-2xl md:border-white " : ""
             }`
           }
         >
@@ -76,7 +76,7 @@ const Navbar = () => {
           </Link>
 
           {/* Login & Registration */}
-          <div className="flex md:order-2 space-x-3">
+          <div className="flex md:order-2 space-x-1">
             {users ? (
               role === "admin" ? (
                 <Link
@@ -97,13 +97,13 @@ const Navbar = () => {
               <>
                 <Link
                   to="/auth/login"
-                  className="p-3 border-2 rounded-2xl shadow-2xl font-bold primary text-white hover:bg-red-500"
+                  className="p-2 border-2 rounded-2xl shadow-2xl font-bold primary text-white hover:bg-red-500"
                 >
                   Login
                 </Link>
                 <Link
                   to="/auth/register"
-                  className="p-3 border-2 rounded-2xl shadow-2xl font-bold primary text-white hover:bg-red-500"
+                  className="p-2 border-2 rounded-2xl shadow-2xl font-bold primary text-white hover:bg-red-500"
                 >
                   Registration
                 </Link>
@@ -147,10 +147,10 @@ const Navbar = () => {
           {/* Nav Links */}
           <div
             className={`${isOpen ? "block bg-white" : "hidden"
-              } w-full md:flex md:w-auto md:order-1`}
+              } w-full md:flex md:w-auto`}
             id="navbar-sticky"
           >
-            <ul className="bg-white md:bg-transparent flex flex-col mt-5 space-y-4 font-medium border border-gray-100 rounded-lg  md:space-x-8 md:flex-row  md:mt-0 md:border-0 py-5">
+            <ul className="bg-white md:bg-transparent flex flex-col mt-5 space-y-4 font-medium rounded-lg md:flex-row  md:mt-0 md:border-0 py-5">
               {links}
             </ul>
           </div>

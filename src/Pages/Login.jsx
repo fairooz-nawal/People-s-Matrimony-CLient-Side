@@ -83,7 +83,7 @@ const Login = () => {
             });
     }
     return (
-        <div className='bg-[#fce7e4a9] w-full py-[150px] md:px-0 lg:px-[100px]'>
+        <div className='bg-[#fce7e4a9] w-full py-[200px] md:px-0 lg:px-[100px]'>
             <h1 className='text-4xl lg:text-7xl font-bold text-center text-gray-700 cursive mb-5'>Login Here and Start Your Journey</h1>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full mx-auto">

@@ -55,12 +55,12 @@ const Registration = () => {
     return (
         <div className='bg-[#fce7e4a9] w-full py-[150px] md:px-0 lg:px-[100px] '>
             <h1 className='text-4xl lg:text-7xl font-bold text-center text-gray-700 cursive mb-5'>Registration Here and Start Your Journey</h1>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full mx-auto">
-                <div className="flex items-center justify-center w-full  mx-auto">
-                    <div style={{ backgroundImage: `url(${bg2})` }} className="md:w-[600px] lg:w-[600px] lg:h-[700px] mx-auto rounded-full p-2 md:p-5 lg:p-5">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full mx-auto p-4">
+                <div className="flex items-center justify-center w-11/12  mx-auto">
+                    <div style={{ backgroundImage: `url(${bg2})` }} className="w-full h-[650px] md:w-[650px] lg:w-[650px] lg:h-[700px] mx-auto rounded-full p-2 md:p-5 lg:p-5">
                         {/* form */}
-                        <div className="loginbg rounded-full p-[60px] w-full h-full">
-                            <h1 className='text-4xl lg:text-7xl font-bold text-center text-white cursive lg:mb-5'>Registration</h1>
+                        <div className="loginbg rounded-full p-[40px] md:p-[60px] w-full h-full">
+                            <h1 className='text-3xl lg:text-7xl font-bold text-center text-white cursive lg:mb-5'>Registration</h1>
                             <form onSubmit={handleSubmit(onSubmit)} className="">
                                 {/* Name */}
                                 <div className="mb-5">
@@ -96,7 +96,10 @@ const Registration = () => {
 
                                 <button type="submit" className="text-white primary hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center ">Submit</button><br />
 
-                                <p className='text-white cursive text-2xl'>Already Registered? <Link to="/auth/login" className=" bg-blue-700 text-white p-2 rounded-xl hover:bg-white hover:text-blue-700">Login</Link></p>
+                                <p className='text-white cursive text-2xl mb-4'>Already Registered? </p>
+                                <div className="ml-10 w-[70px]">
+                                    <Link to="/auth/login" className=" bg-blue-700 text-white p-2 rounded-xl hover:bg-white hover:text-blue-700">Login</Link>
+                                </div>
                             </form>
                         </div>
                     </div>
