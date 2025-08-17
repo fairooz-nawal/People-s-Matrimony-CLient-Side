@@ -34,7 +34,7 @@ const DashBoard = () => {
         <div className="flex flex-col md:flex-row min-h-screen max-w-full md:max-w-7xl lg:max-w-[1600px] mx-auto">
             {/* Sidebar */}
             <div
-                className={`fixed md:static z-50 top-0 left-0 w-64 h-full bg-red-400 border-r border-gray-200 shadow-lg transform transition-transform duration-300 ease-in-out
+                className={`fixed md:static z-50 top-0 left-0 md:w-45 lg:w-48 h-full bg-red-400 border-r border-gray-200 shadow-lg transform transition-transform duration-300 ease-in-out
       ${isOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"}`}
             >
                 <div className="flex justify-between items-center p-4 border-b">
@@ -68,7 +68,7 @@ const DashBoard = () => {
             {/* Main Content */}
             <div className="w-full">
                 {/* Header */}
-                <div className="bg-gradient-to-r from-amber-500 to-pink-500  flex justify-between items-center w-full pt-[150px] pb-5">
+                <div className="bg-gradient-to-r from-amber-500 to-pink-500  flex justify-between items-center w-full pt-[100px] md:pt-[69px] pb-5">
                     <h1 className="text-white font-bold text-lg">Dashboard</h1>
                     {/* Menu button ONLY visible on mobile */}
                     <button
@@ -81,14 +81,14 @@ const DashBoard = () => {
 
                 {/* Main Body */}
                 <div
-                    className="flex md:justify-end lg:justify-center overflow-x-auto py-4 p-6 lg:pr-[10opx]"
+                    className="flex  md:justify-end lg:justify-center overflow-x-auto py-10 p-5"
                     style={{
                         backgroundImage: `url(${bg})`,
                         backgroundSize: "cover",
                         height: "100vh", // adjust height
                     }}
                 >
-                    <div className="md:w-[500px] lg:w-[800px] ">
+                    <div className="md:w-[550px] lg:w-[600px] h-[700px] overflow-auto">
                         <Outlet />
                     </div>
 
